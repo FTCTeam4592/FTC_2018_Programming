@@ -1,0 +1,4 @@
+#Sat Dec 15 16:37:10 EST 2018
+base.0=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/2
+path.0=classes.dex
+renamed.0=classes.dex
