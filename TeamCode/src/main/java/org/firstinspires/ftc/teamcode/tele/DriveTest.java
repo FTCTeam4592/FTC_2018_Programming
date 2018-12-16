@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.Robot4592;
 import org.firstinspires.ftc.teamcode.RobotBase;
 
 
@@ -12,22 +14,22 @@ import org.firstinspires.ftc.teamcode.RobotBase;
 
 @TeleOp(name = "DriveTest")
 
-public class DriveTest extends RobotBase {
+public class DriveTest extends Robot4592 {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        setup();
+        init();
 
         waitForStart();
 
 
-        left_f.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        left_r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        right_f.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        right_r.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lift_arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        final int originalFlipPos = flip_out.getCurrentPosition();
+        final int originalFlipPos = flipOut.getCurrentPosition();
 
 
         while (opModeIsActive()) {
@@ -39,7 +41,7 @@ public class DriveTest extends RobotBase {
             final int extendUp_Lowered = 0;
             final int original_out = extendOut.getCurrentPosition();
             final int original_up = extendUp.getCurrentPosition();
-            final double originial_flip_up = flip_up.getPosition();
+            final double originial_flip_up = flipUp.getPosition();
 
             //strafe
             double leftFront_Power = -1.5 * Math.cos(gamepad1.left_stick_y) * Math.sin(gamepad1.left_stick_x);
@@ -54,10 +56,10 @@ public class DriveTest extends RobotBase {
             double rearLeft = gamepad1.left_stick_y;
 
 
-            if (gamepad2.x && lift_arm.getCurrentPosition()>= 500) {
+            if (gamepad2.x && liftArm.getCurrentPosition()>= 500) {
                 drop(0); //when x is pressed, the lift arm will go down
             }
-            if (gamepad2.x && lift_arm.getCurrentPosition() < 500) {
+            if (gamepad2.x && liftArm.getCurrentPosition() < 500) {
                 climb(3200); //when b is pressed, teh lift arm will go up
             }
 
@@ -77,17 +79,17 @@ public class DriveTest extends RobotBase {
                 extendOut.setPower(-ext);
             }
 
-            if(gamepad2.dpad_left && flip_out.getCurrentPosition()>=50){
-                flip_out.setTargetPosition(0);
-                flip_out.setPower(0.75);
+            if(gamepad2.dpad_left && flipOut.getCurrentPosition()>=50){
+                flipOut.setTargetPosition(0);
+                flipOut.setPower(0.75);
             }
-            if(flip_out.getCurrentPosition()<=15){
-                flip_out.setPower(0);
+            if(flipOut.getCurrentPosition()<=15){
+                flipOut.setPower(0);
             }
-            if(gamepad2.dpad_right && flip_out.getCurrentPosition()<50){
+            if(gamepad2.dpad_right && flipOut.getCurrentPosition()<50){
 
-                flip_out.setTargetPosition(originalFlipPos);
-                flip_out.setPower(-0.4);
+                flipOut.setTargetPosition(originalFlipPos);
+                flipOut.setPower(-0.4);
 
             }
 
@@ -113,20 +115,17 @@ public class DriveTest extends RobotBase {
             }
 
 
-            intake(0);
-            while(gamepad2.a) {
-                intake(0.9);
-            }
-
+            leftIn.setPower(0.85*gamepad2.left_stick_y);
+            rightIn.setPower(0.85*-gamepad2.left_stick_y);
             telemetry.addData("leftfrontpower: ", leftFront_Power);
             telemetry.addData("leftrearpower: ", leftRear_Power);
             telemetry.addData("rightfrontpower: ", rightFront_Power);
             telemetry.addData("rightrearpower: ", rightRear_Power);
-            telemetry.addData("lift position", lift_arm.getCurrentPosition());
+            telemetry.addData("lift position", liftArm.getCurrentPosition());
             telemetry.addData("extension position: ", extendOut.getCurrentPosition());
             telemetry.addData("extend up: ", extendUp.getCurrentPosition());
-            telemetry.addData("flipup: ", flip_up.getPosition());
-            telemetry.addData("flip out: ", flip_out.getCurrentPosition());
+            telemetry.addData("flipup: ", flipUp.getPosition());
+            telemetry.addData("flip out: ", flipOut.getCurrentPosition());
             /*
             if (isGold) {
                 telemetry.addLine("IT WORKS BABYŸŸŸŸŸŸ;;;;;;;;;;;;YY");
@@ -149,32 +148,24 @@ public class DriveTest extends RobotBase {
 
     private void drive( double lf, double rf, double lr, double rr1){
 
-        left_f.setPower(lf);
-        right_f.setPower(rf);
-        left_r.setPower(lr);
-        right_r.setPower(rr1);
+        leftFront.setPower(lf);
+        rightFront.setPower(rf);
+        leftRear.setPower(lr);
+        rightRear.setPower(rr1);
 
     }
 
     private void drop( int p){
 
-        lift_arm.setTargetPosition(p);
-        lift_arm.setPower(-0.7);
+        liftArm.setTargetPosition(p);
+        liftArm.setPower(-0.7);
 
     }
 
     private void climb( int o){
 
-        lift_arm.setTargetPosition(o);
-        lift_arm.setPower(1.0);
-
-    }
-
-
-    private void intake(double inP){
-
-        left_in.setPower(-inP);
-        right_in.setPower(inP);
+        liftArm.setTargetPosition(o);
+        liftArm.setPower(1.0);
 
     }
 
@@ -192,13 +183,13 @@ public class DriveTest extends RobotBase {
 
     private void flipUp(double s){
 
-        flip_up.setPosition(s);
+        flipUp.setPosition(s);
 
     }
 
     private void flipDown(){
 
-        flip_up.setPosition(0);
+        flipUp.setPosition(0);
 
     }
 

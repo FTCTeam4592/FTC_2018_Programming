@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Dec 15 17:48:39 EST 2018
+#Sun Dec 16 16:48:36 EST 2018
 20.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 143.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 237.path=fonts/fontawesome-webfont.ttf
@@ -184,7 +184,7 @@
 161.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 150.set=ASSET
 4.set=ASSET
-288.path=blocks/touch_sensor.js
+288.path=classes.dex
 71.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 195.set=ASSET
 47.set=ASSET
@@ -562,7 +562,7 @@
 135.path=java/js/antlr4/Recognizer.js
 391.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 306.path=images/ftcOpticalDistanceSensor.png
-288.set=ASSET
+288.set=DEX
 168.path=java/templates/ConceptTelemetry
 45.path=java/js/antlr4/error/index.js
 211.set=ASSET
@@ -824,7 +824,7 @@
 231.set=ASSET
 256.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 201.baseType=DIRECTORY
-289.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/0
+289.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 231.path=RobotConfigDescriptionGenerate.xslt
 28.baseType=DIRECTORY
 56.baseType=DIRECTORY
@@ -1000,7 +1000,7 @@
 274.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 366.set=ASSET
 98.path=toolbox/vuforiaRoverRuckus_initialize_withWebcam.xml
-289.set=DEX
+289.set=ASSET
 198.baseType=DIRECTORY
 212.set=ASSET
 326.baseType=DIRECTORY
@@ -1102,7 +1102,7 @@
 162.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 296.baseType=DIRECTORY
 160.set=ASSET
-289.path=classes.dex
+289.path=blocks/touch_sensor.js
 72.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 57.set=ASSET
 308.set=ASSET
@@ -1494,7 +1494,7 @@ count=396
 255.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 207.baseType=DIRECTORY
 79.path=java/templates/ConceptDIMAsIndicator
-288.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+288.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/0
 213.baseType=DIRECTORY
 241.baseType=DIRECTORY
 230.path=java/templates/ConceptRevSPARKMini
