@@ -33,7 +33,7 @@ public class whatIsLove extends Robot4592 {
                 arcade(leftyPower, rightyPower);
 
             }
-            else if ((gamepad1.right_stick_x == 0) && (gamepad1.right_stick_y == 0 )){
+            else if ((gamepad1.right_stick_x == 0) && (gamepgiad1.right_stick_y == 0 )){
                 float movex = gamepad1.left_stick_y;
                 float movey = gamepad1.left_stick_x;
 
