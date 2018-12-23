@@ -18,7 +18,7 @@ public class DriveTest extends Robot4592 {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        init();
+        shalama();
 
         waitForStart();
 
@@ -115,8 +115,7 @@ public class DriveTest extends Robot4592 {
             }
 
 
-            leftIn.setPower(0.85*gamepad2.left_stick_y);
-            rightIn.setPower(0.85*-gamepad2.left_stick_y);
+            Intake.setPower(0.85*gamepad2.left_stick_y);
             telemetry.addData("leftfrontpower: ", leftFront_Power);
             telemetry.addData("leftrearpower: ", leftRear_Power);
             telemetry.addData("rightfrontpower: ", rightFront_Power);
