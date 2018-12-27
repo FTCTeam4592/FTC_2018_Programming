@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -27,13 +28,14 @@ public abstract class Robot4592 extends LinearOpMode {
         extendOut = hardwareMap.dcMotor.get("extendOut");
         flipOut = hardwareMap.dcMotor.get("flipOut");
         flipUp = hardwareMap.servo.get("flipUp");
+        Intake = hardwareMap.crservo.get("Intake");
 
-        leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightRear.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightRear.setDirection(DcMotor.Direction.FORWARD);
 
-        flipOut.setDirection(DcMotor.Direction.FORWARD);
+        //flipOut.setDirection(DcMotor.Direction.FORWARD);
 
         // Set to FORWARD if using AndyMark motors
         // Set all motors to zero power
@@ -46,10 +48,10 @@ public abstract class Robot4592 extends LinearOpMode {
         // Use RUN_USING_ENCODERS if encoders are installed.
         extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         flipOut.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendUp.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendOut.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

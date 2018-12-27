@@ -17,6 +17,7 @@ public class whatIsLove extends Robot4592 {
 
         shalama();
         int originalFlipPos = flipOut.getCurrentPosition();
+        flipOut.setTargetPosition(150);
 
         waitForStart();
 
@@ -27,13 +28,14 @@ public class whatIsLove extends Robot4592 {
             double leftyPower;
             double rightyPower;
 
-            if(Math.abs(gamepad1.right_stick_y)>Math.abs(gamepad1.right_stick_x)){
+           /* if(Math.abs(gamepad1.right_stick_y)>Math.abs(gamepad1.right_stick_x)){
                 leftyPower = gamepad1.right_stick_y;
                 rightyPower = gamepad1.right_stick_y;
                 arcade(leftyPower, rightyPower);
 
-            }
-            else if ((gamepad1.right_stick_x == 0) && (gamepgiad1.right_stick_y == 0 )){
+            }*/
+
+            if(gamepad1.right_stick_x==0 && gamepad1.right_stick_y==0) {
                 float movex = gamepad1.left_stick_y;
                 float movey = gamepad1.left_stick_x;
 
@@ -42,32 +44,40 @@ public class whatIsLove extends Robot4592 {
                 // 1 is full clockwise
 
                 float roll = gamepad1.left_trigger;
+                float rolr = gamepad1.right_trigger;
 
                 // clip the right/left values so that the values never exceed +/- 1
                 movex = Range.clip(movex, -1, 1);
                 movey = Range.clip(movey, -1, 1);
-                roll = Range.clip((roll*2), -1, 1);
+                roll = Range.clip((roll * 2), -1, 1);
+                rolr = Range.clip((rolr * 2), -1, 1);
 
                 // scale the joystick value to make it easier to control
                 // the robot more precisely at slower speeds.
                 movex = (float) scaleInput(movex);
                 movey = (float) scaleInput(movey);
                 roll = (float) scaleInput(roll);
+                rolr = (float) scaleInput(rolr);
 
                 // write the values to the motors
-                leftFront.setPower(Range.clip(-movex+movey+roll, -1, 1));
-                leftRear.setPower(Range.clip(movex-movey+roll, -1, 1));
-                rightFront.setPower(Range.clip(-movex-movey-roll, -1, 1));
-                rightRear.setPower(Range.clip(movex+movey-roll, -1, 1));
-
+                leftFront.setPower(Range.clip(-movex + movey + roll - rolr, -1, 1));
+                leftRear.setPower(Range.clip(movex - movey + roll - rolr, -1, 1));
+                rightFront.setPower(Range.clip(-movex - movey - roll + rolr, -1, 1));
+                rightRear.setPower(Range.clip(movex + movey - roll + rolr, -1, 1));
             }
             else{
+                leftyPower = gamepad1.right_stick_y;
+                rightyPower = gamepad1.right_stick_y;
+                arcade(leftyPower,rightyPower);
+            }
+           // }
+           /* else{
                 leftyPower = -1 * gamepad1.right_stick_y;
                 rightyPower = gamepad1.right_stick_y;
                 arcade(leftyPower, rightyPower);
 
             }
-
+*/
   //         drive(leftFront_Power, rightFront_Power, leftRear_Power, rightRear_Power);
 
             //Extend Up
@@ -109,25 +119,32 @@ public class whatIsLove extends Robot4592 {
 
             if(gamepad2.dpad_up){
                 flipOut.setTargetPosition(550);
-                flipOut.setPower(0.75);
+                flipOut.setPower(-0.75);
                 flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 //flipOut.setPower(0);
             }
             if(gamepad2.dpad_down){
 
-                flipOut.setTargetPosition(0);
+                flipOut.setTargetPosition(150);
                 flipOut.setPower(0.5);
                 flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             }
             flipOut.setPower(0);
 
-            if(gamepad2.y && (flipUp.getPosition() < 0.7)){
+            if(gamepad2.y && (flipUp.getPosition() < 0.625)){
                 flipUp.setPosition(0.9);
             }
-            else if(gamepad2.y && (flipUp.getPosition() > 0.7)){
+            else if(gamepad2.y && (flipUp.getPosition() > 0.625)){
                 flipUp.setPosition(0.45);
+            }
+
+            if(Math.abs(gamepad2.left_stick_y)>0){
+                Intake.setPower(0.75);
+            }
+            else{
+                Intake.setPower(0);
             }
 
             telemetry.addData("lift", liftArm.getCurrentPosition());
@@ -160,4 +177,10 @@ public class whatIsLove extends Robot4592 {
 
     }
 
+    /*private void turn(double left, double right){
+        leftFront.setPower(left);
+        leftRear.setPower();
+        rightFront.setPower();
+    }
+*/
 }
