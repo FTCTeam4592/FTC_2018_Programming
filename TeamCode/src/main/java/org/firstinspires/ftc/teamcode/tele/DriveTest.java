@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Robot4592;
 import org.firstinspires.ftc.teamcode.RobotBase;
@@ -44,17 +45,34 @@ public class DriveTest extends Robot4592 {
             final double originial_flip_up = flipUp.getPosition();
 
             //strafe
-            double leftFront_Power = -1.5 * Math.cos(gamepad1.left_stick_y) * Math.sin(gamepad1.left_stick_x);
-            double rightFront_Power = -leftFront_Power;
-            double leftRear_Power = -leftFront_Power;
-            double rightRear_Power = leftFront_Power;
+            double leftFront_Power = Range.clip(-1* gamepad1.left_stick_x,-0.99,0.99);
+            double rightFront_Power = Range.clip(leftFront_Power,-0.99,0.99);
+            double leftRear_Power = Range.clip(-leftFront_Power,-0.99,0.99);
+            double rightRear_Power = Range.clip(-leftFront_Power,-0.99,0.99);
+
+            leftFront_Power = (float) scaleInput(leftFront_Power);
+            rightFront_Power = (float) scaleInput(rightFront_Power);
+            leftRear_Power = (float) scaleInput(leftRear_Power);
+            rightRear_Power = (float) scaleInput(rightRear_Power);
 
             //drive
-            double frontRight = -gamepad1.right_stick_y;
-            double rearRight = -gamepad1.right_stick_y;
-            double frontLeft = gamepad1.left_stick_y;
-            double rearLeft = gamepad1.left_stick_y;
+            double frontRight = Range.clip(-gamepad1.right_stick_y, -0.99, 0.99);
+            double rearRight = Range.clip(-gamepad1.right_stick_y,-0.99,0.99);
+            double frontLeft = Range.clip(gamepad1.left_stick_y,-0.99,0.99);
+            double rearLeft = Range.clip(gamepad1.left_stick_y,-0.99,0.99);
 
+            frontRight = (float) scaleInput(frontRight);
+            rearRight = (float) scaleInput(rearRight);
+            frontLeft = (float) scaleInput(frontLeft);
+            rearLeft = (float) scaleInput(rearLeft);
+
+
+            if(Math.abs(gamepad1.left_stick_x*gamepad1.left_stick_y)>0 && ((gamepad1.right_stick_x+gamepad1.right_stick_y) == 0)) {
+                drive(leftFront_Power, rightFront_Power, leftRear_Power, rightRear_Power);
+            }
+            else {
+                drive(-frontLeft, frontRight, -rearLeft, rearRight);
+            }
 
             if (gamepad2.x && liftArm.getCurrentPosition()>= 500) {
                 drop(0); //when x is pressed, the lift arm will go down
@@ -115,7 +133,6 @@ public class DriveTest extends Robot4592 {
             }
 
 
-            Intake.setPower(0.85*gamepad2.left_stick_y);
             telemetry.addData("leftfrontpower: ", leftFront_Power);
             telemetry.addData("leftrearpower: ", leftRear_Power);
             telemetry.addData("rightfrontpower: ", rightFront_Power);
@@ -132,8 +149,6 @@ public class DriveTest extends Robot4592 {
                 telemetry.addLine("THIS AIN'T IT");
             }
 */
-            drive(leftFront_Power, rightFront_Power, leftRear_Power, rightRear_Power);
-            drive(-frontLeft, -frontRight, -rearLeft, -rearRight);
             telemetry.update();
             idle();
 

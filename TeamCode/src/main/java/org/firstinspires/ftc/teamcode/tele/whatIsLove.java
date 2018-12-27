@@ -66,6 +66,7 @@ public class whatIsLove extends Robot4592 {
                 rightRear.setPower(Range.clip(movex + movey - roll + rolr, -1, 1));
             }
             else{
+                shalamaDrive();
                 leftyPower = gamepad1.right_stick_y;
                 rightyPower = gamepad1.right_stick_y;
                 arcade(leftyPower,rightyPower);
