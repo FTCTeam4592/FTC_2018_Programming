@@ -29,14 +29,14 @@ public class testerdriver extends Robot4592 {
     }
 
     private void drive(double lf, double lr, double rf, double rr){
-        shalamaDrive();
+        shalama();
         leftFront.setPower(lf);
         leftRear.setPower(lr);
         rightFront.setPower(rf);
         rightRear.setPower(rr);
     }
     private void turn(double lf, double lr, double rf, double rr){
-        shalamaDrive();
+        shalama();
         leftFront.setPower(-lf);
         leftRear.setPower(lr);
         rightFront.setPower(-rf);

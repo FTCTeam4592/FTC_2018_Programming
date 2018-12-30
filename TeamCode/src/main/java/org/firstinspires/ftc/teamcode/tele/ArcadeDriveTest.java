@@ -29,7 +29,7 @@ public class ArcadeDriveTest extends Robot4592 {
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        final int originalFlipPos = flipOut.getCurrentPosition();
+        final double originalFlipPos = flipOut.getPosition();
 
 
         while (opModeIsActive()) {
@@ -96,20 +96,7 @@ public class ArcadeDriveTest extends Robot4592 {
             }
                 extendOut.setPower(ext);
 
-            //flip servo
-            if(gamepad2.dpad_left && flipOut.getCurrentPosition()>=50){
-                flipOut.setTargetPosition(0);
-                flipOut.setPower(0.75);
-            }
-            if(flipOut.getCurrentPosition()<=15){
-                flipOut.setPower(0);
-            }
-            if(gamepad2.dpad_right && flipOut.getCurrentPosition()<50){
 
-                flipOut.setTargetPosition(originalFlipPos);
-                flipOut.setPower(-0.4);
-
-            }
 
             //flip up
             if (gamepad2.dpad_up){
@@ -130,7 +117,7 @@ public class ArcadeDriveTest extends Robot4592 {
             telemetry.addData("extension position", extendOut.getCurrentPosition());
             telemetry.addData("extend up", extendUp.getCurrentPosition());
             telemetry.addData("flipup", flipUp.getPosition());
-            telemetry.addData("flip out", flipOut.getCurrentPosition());
+            telemetry.addData("flip out", flipOut.getPosition());
             /*
             if (isGold) {
                 telemetry.addLine("IT WORKS BABYŸŸŸŸŸŸ;;;;;;;;;;;;YY");

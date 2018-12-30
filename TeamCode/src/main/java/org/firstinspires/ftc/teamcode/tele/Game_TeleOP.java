@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Robot4592;
@@ -15,6 +16,12 @@ public class Game_TeleOP extends Robot4592 {
         public void runOpMode() {
 
             shalama();
+            liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            flipOut.setPosition(0);
+
+
+            flipUp.setPosition(0.49);
+
             //int originalFlipPos = flipOut.getCurrentPosition();
            // flipOut.setTargetPosition(150);
 
@@ -23,7 +30,7 @@ public class Game_TeleOP extends Robot4592 {
             while (opModeIsActive()) {
 
 
-                //strafe
+                //strafe right
                 double leftFront_Power = Range.clip(-1 * gamepad1.left_stick_x, -1, 1);
                 double rightFront_Power = Range.clip(leftFront_Power, -1, 1);
                 double leftRear_Power = Range.clip(-leftFront_Power, -1, 1);
@@ -46,81 +53,115 @@ public class Game_TeleOP extends Robot4592 {
                 rearLeft = (float) scaleInput(rearLeft);
 
 
-                if (Math.abs(gamepad1.left_stick_x * gamepad1.left_stick_y) > 0 && ((gamepad1.right_stick_x + gamepad1.right_stick_y) == 0)) {
+                int current;
+
+                if(Math.abs(gamepad1.left_stick_x * gamepad1.left_stick_y)>0 && ((gamepad1.right_stick_x+gamepad1.right_stick_y)==0)) {
+                    //strafe
                     drive(leftFront_Power, rightFront_Power, leftRear_Power, rightRear_Power);
-                } else {
+                }
+                else {
+                    //drive
                     drive(-frontLeft, frontRight, -rearLeft, rearRight);
                 }
-
+                int liftArmPosition = 0;
                 //Extend Up
                 int extend_up_position = extendUp.getCurrentPosition();
                 int extend_up_top = 1000;
 
-                if (gamepad2.b && liftArm.getCurrentPosition() >= -50) {
-                    liftArm.setTargetPosition(-3350);
-                    liftArm.setPower(0.5);
-                } else if (gamepad2.b && liftArm.getCurrentPosition() < -50) {
-                    liftArm.setTargetPosition(0);
-                    liftArm.setPower(-0.5);
+                // Gamepad B toggles the Lift Arm Position from bottom (0) to the top (-3100)
+                if (gamepad2.b) {
+                    if (liftArm.getCurrentPosition() >= -1000) {
+                        liftArm.setTargetPosition(liftArmTargetPosition);
+                        liftArm.setPower(0.5);
+                    } else if (liftArm.getCurrentPosition() <= -1000) {
+                        liftArm.setTargetPosition(liftArmHomePosition);
+                        liftArm.setPower(1.0);
+                    }
                 }
 
                 if (gamepad2.x && (extendUp.getCurrentPosition() <= 550)) {
-                    extendUp.setTargetPosition(8000);
+                    extendUp.setTargetPosition(7750);
                     extendUp.setPower(1);
-                    extendUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     //extendUp.setPower(0);
                 } else if (gamepad2.x && (extendUp.getCurrentPosition() > 550)) {
                     extendUp.setTargetPosition(0);
                     extendUp.setPower(-1);
-                    extendUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     //extendUp.setPower(0);
                 }
 
                 double ext;
 
-                if (gamepad2.right_bumper && (extendOut.getCurrentPosition() <= 4700)) {
-                    ext = -1;
-                } else if (gamepad2.left_bumper && (extendOut.getCurrentPosition() > 0)) {
+                if (gamepad2.right_bumper) {
                     ext = 1;
+                } else if (gamepad2.left_bumper) {
+                    ext = -1;
                 } else {
                     ext = 0;
                 }
+
+
                 extendOut.setPower(ext);
 
-                if (gamepad2.dpad_down && (extendOut.getCurrentPosition() > -20)) {
-                    flipOut.setTargetPosition(-500);
-                    flipOut.setPower(0.2);
-                    flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //telemetry.addData("target", flipOut.getTargetPosition());
-                    telemetry.addData("current", extendOut.getCurrentPosition());
+                telemetry.addData("test", flipOut.getDirection());
+                //flipOut.setPosition(0);
+                telemetry.addData("current pos", flipOut.getPosition());
+                //
+                //flipOut.setDirection(Servo.Direction.REVERSE);
+
+                if (gamepad2.dpad_down && (flipOut.getPosition() < 0.2)) {
+
+                    telemetry.addData("test", flipOut.getDirection());
+                    telemetry.addData("current pos", flipOut.getPosition());
                     telemetry.update();
-                } else if (gamepad2.dpad_up && (extendOut.getCurrentPosition() < -400)) {
-                    flipOut.setTargetPosition(0);
-                    flipOut.setPower(0.4);
-                    flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //telemetry.addData("target1", flipOut.getTargetPosition());
-                    //telemetry.addData("current1", flipOut.getCurrentPosition());
-                    //telemetry.update();
+                    flipOut.setPosition(0.35);
+                    //current = extendOut.getCurrentPosition();
+                } else if (gamepad2.dpad_up && (flipOut.getPosition() >0.2)) {
+
+                   // flipOut.setDirection(Servo.Direction.FORWARD);
+                    telemetry.addData("current pos", flipOut.getPosition());
+                    telemetry.update();
+                    flipOut.setPosition(0.02);
                 }
 
+                if (gamepad2.dpad_left){
+                    telemetry.addData("current pos", flipOut.getPosition());
+                    flipOut.setPosition(0.15);
+                }
+
+                if (gamepad2.y && (flipUp.getPosition() < 0.55)) {
+                    flipUp.setPosition(0.92);
+                } else if (gamepad2.y && (flipUp.getPosition() > 0.55)) {
+                    flipUp.setPosition(0.49);
+                }
+
+                // If GamePad 2 button A is pressed, turn on Intake Motor
+                /*
+                if (gamepad2.a) {
+                    Intake.setPower(0.4);
+                    telemetry.addData("intake", Intake.getPower());
+                    telemetry.update();
+
+                }
+                */
+
+                Intake.setPower(-1*((gamepad2.left_stick_y)*0.85));
+
+
+
+                telemetry.addData("lift", liftArm.getCurrentPosition());
+                telemetry.addData("extend up", extendUp.getCurrentPosition());
+                telemetry.addData("extend out", extendOut.getCurrentPosition());
+                telemetry.addData("flip up", flipUp.getPosition());
+                telemetry.addData("rightfrontpow", rightFront.getPower());
+                telemetry.addData("rightpow", rightRear.getPower());
+                telemetry.addData("current", flipOut.getPosition());
+                telemetry.addData("intake", Intake.getPower());
+                telemetry.update();
+
             }
 
 
-            if (gamepad2.y && (flipUp.getPosition() < 0.625)) {
-                flipUp.setPosition(0.9);
-            } else if (gamepad2.y && (flipUp.getPosition() > 0.625)) {
-                flipUp.setPosition(0.45);
-            }
 
-            telemetry.addData("lift", liftArm.getCurrentPosition());
-            telemetry.addData("extend up", extendUp.getCurrentPosition());
-            telemetry.addData("extend out", flipOut.getCurrentPosition());
-            telemetry.addData("flip out", extendOut.getCurrentPosition());
-            telemetry.addData("flip up", flipUp.getPosition());
-            telemetry.addData("rightfrontpow", rightFront.getPower());
-            telemetry.addData("rightpow", rightRear.getPower());
-            telemetry.addData("targ", flipOut.getTargetPosition());
-            telemetry.update();
 
 
         }

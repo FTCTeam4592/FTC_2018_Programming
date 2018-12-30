@@ -16,8 +16,8 @@ public class whatIsLove extends Robot4592 {
     public void runOpMode(){
 
         shalama();
-        int originalFlipPos = flipOut.getCurrentPosition();
-        flipOut.setTargetPosition(150);
+        double originalFlipPos = flipOut.getPosition();
+        flipOut.setPosition(150);
 
         waitForStart();
 
@@ -66,7 +66,7 @@ public class whatIsLove extends Robot4592 {
                 rightRear.setPower(Range.clip(movex + movey - roll + rolr, -1, 1));
             }
             else{
-                shalamaDrive();
+                shalama();
                 leftyPower = gamepad1.right_stick_y;
                 rightyPower = gamepad1.right_stick_y;
                 arcade(leftyPower,rightyPower);
@@ -119,20 +119,15 @@ public class whatIsLove extends Robot4592 {
             extendOut.setPower(ext);
 
             if(gamepad2.dpad_up){
-                flipOut.setTargetPosition(550);
-                flipOut.setPower(-0.75);
-                flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                flipOut.setPosition(550);
                 //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 //flipOut.setPower(0);
             }
             if(gamepad2.dpad_down){
 
-                flipOut.setTargetPosition(150);
-                flipOut.setPower(0.5);
-                flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                flipOut.setPosition(150);
                 //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             }
-            flipOut.setPower(0);
 
             if(gamepad2.y && (flipUp.getPosition() < 0.625)){
                 flipUp.setPosition(0.9);
@@ -150,7 +145,7 @@ public class whatIsLove extends Robot4592 {
 
             telemetry.addData("lift", liftArm.getCurrentPosition());
             telemetry.addData("extend up", extendUp.getCurrentPosition());
-            telemetry.addData("extend out", flipOut.getCurrentPosition());
+            telemetry.addData("extend out", flipOut.getPosition());
             telemetry.addData("flip out", extendOut.getCurrentPosition());
             telemetry.addData("flip up", flipUp.getPosition());
 
