@@ -19,7 +19,7 @@ public class DriveTest extends Robot4592 {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        shalama();
+        tele();
 
         waitForStart();
 

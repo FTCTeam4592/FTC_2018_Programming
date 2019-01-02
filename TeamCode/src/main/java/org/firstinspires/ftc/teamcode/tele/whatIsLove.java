@@ -15,7 +15,7 @@ public class whatIsLove extends Robot4592 {
     @Override
     public void runOpMode(){
 
-        shalama();
+        tele();
         double originalFlipPos = flipOut.getPosition();
         flipOut.setPosition(150);
 
@@ -66,7 +66,7 @@ public class whatIsLove extends Robot4592 {
                 rightRear.setPower(Range.clip(movex + movey - roll + rolr, -1, 1));
             }
             else{
-                shalama();
+                tele();
                 leftyPower = gamepad1.right_stick_y;
                 rightyPower = gamepad1.right_stick_y;
                 arcade(leftyPower,rightyPower);

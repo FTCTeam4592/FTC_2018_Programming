@@ -15,7 +15,7 @@ public class Game_TeleOP extends Robot4592 {
         @Override
         public void runOpMode() {
 
-            shalama();
+            tele();
             liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             flipOut.setPosition(0);
 

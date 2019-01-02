@@ -13,7 +13,7 @@ public class drive extends Robot4592 {
     @Override
     public void runOpMode() {
 
-        shalama();
+        tele();
 
         waitForStart();
 
