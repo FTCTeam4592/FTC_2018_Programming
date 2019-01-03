@@ -149,6 +149,7 @@ public abstract class Robot4592 extends LinearOpMode {
         liftArm = hardwareMap.dcMotor.get("liftArm");
         liftArm.setDirection(DcMotor.Direction.REVERSE);
         liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
