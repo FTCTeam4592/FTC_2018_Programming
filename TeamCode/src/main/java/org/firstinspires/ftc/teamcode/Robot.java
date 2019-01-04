@@ -30,6 +30,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.PIDController;
 import org.firstinspires.ftc.teamcode.TensorFlow;
 
@@ -41,6 +44,8 @@ import static java.lang.Thread.sleep;
  * This class can be used to define all the specific hardware for our robot
  * This class stores functions that 3use a combination of subsystems on our robot
  */
+
+/*
 public class Robot {
     private static final Robot instance = new Robot();
     public Drive drive = Drive.getInstance();
@@ -50,11 +55,11 @@ public class Robot {
     public Sensors sensors = Sensors.getInstance();
 
     /* Constructor */
-    private Robot(){
+ /*   private Robot(){
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap hwMap) {
+ /*   public void init(HardwareMap hwMap) {
         drive.init(hwMap);
         lift.init(hwMap);
         mineral.init(hwMap);
@@ -148,3 +153,4 @@ public class Robot {
         return instance;
     }
 }
+*/

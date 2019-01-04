@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
-
+/*
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -60,3 +61,4 @@ public class TrajectoryFollower {
         }
     }
 }
+*/
