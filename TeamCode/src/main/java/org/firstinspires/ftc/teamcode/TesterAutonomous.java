@@ -4,6 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.vision.AKObjectDetection;
+import org.firstinspires.ftc.teamcode.vision.MasterVision;
+import org.firstinspires.ftc.teamcode.vision.SampleRandomizedPositions;
+
 
 @Autonomous(name="AUTONOMOUS_2019_01", group="Encoder")
 //@Disabled
@@ -14,19 +19,28 @@ public class TesterAutonomous extends Robot4592 {
     private ElapsedTime     runtime = new ElapsedTime();
 
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1240.0 ;    // eg: AndyMark NeverRest40 Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 1120.0 ;    // eg: AndyMark NeverRest40 Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = .5 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .5;
     static final double     TURN_SPEED              = .5;
+    MasterVision vision;
+    SampleRandomizedPositions goldPosition;
+    AKObjectDetection detected = new AKObjectDetection();
 
     @Override
     public void runOpMode() {
 
         auto();
 
+      /*  VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;// recommended camera direction
+        parameters.vuforiaLicenseKey = "ARJCp6T/////AAABmRttT+LHV03viaux59tDgwQAcMq1HFTvZNKn5yFhA+l2VltLOSTPHHtHahoM9BTEmQKSs31iPWOjUw6PquYvKi/swRXOSNvJdHzqT7NvkcAiS8tHg/oV7YYATIbGItnLWdKdAVxxCdyTEsAhpNjSPB13B9F9cN6k4tYr38faOz51bbINpcKd6jivqJDwatyuaU2r9F5eSERe2GrzZfSIqUCZdW3tDIhXCgsJ1U4AS6QdYspg0yoG88VsxAZHNZvEl2Ldc7tenqS2MBLBSORv8uQisk6wgqJSlv4oOnoQoMd9p72+cAV2HUO5I1uynCeR/ON8oSMxfmaa4spc51p8Ek7EK7mtaEy+SgkSDC/EYSQ8";
+
+        vision = new MasterVision(parameters, hardwareMap, false, MasterVision.TFLiteAlgorithm.INFER_LEFT);
+        vision.init();// enables the camera overlay. this will take a couple of seconds
+        vision.enable();// enables the tracking algorithms. this might also take a little time
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
@@ -58,23 +72,52 @@ public class TesterAutonomous extends Robot4592 {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //vision.disable();// disables tracking algorithms. this will free up your phone's processing power for other jobs.
+
+       // goldPosition = vision.getTfLite().getLastKnownSampleOrder();
+
+       // telemetry.addData("goldPosition was", goldPosition);// giving feedback
+        //Drop Robot from the Lander
         dropLift(-6000, 0.6);
         sleep(3000);
-        driveForward(0.5, 15);
-        telemetry.addData("encoder", leftFront.getCurrentPosition());
-        telemetry.update();
+        int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
 
-       // idle();
-        strafeLeft(0.5,70);
-        /*strafeLeft(0.5, 40);
+        //To release the hook from the Lander
+        driveForward(0.5, 6);
+        strafeLeft(0.5,30);
+        detected.runOpMode();
+        /*vision.enable();
+        sleep(2000);
+        vision.disable();
+        switch (goldPosition){ // using for things in the autonomous program
+            case LEFT:
+                telemetry.addLine("going to the left");
+                driveForward(0.5, 12);
+                turnLeft(0.5, 12);
+                break;
+            case CENTER:
+                telemetry.addLine("going straight");
+                turnLeft(0.5, 12);
+                break;
+            case RIGHT:
+                telemetry.addLine("going to the right");
+                driveBack(0.5, 12);
+                turnLeft(05., 12);
+                break;
+            case UNKNOWN:
+                telemetry.addLine("staying put");
+                break;
+        }*/
+        telemetry.update();
+       /*
         turnLeft(0.5,27);
         driveForward(0.5,5);
         flipOut.setPosition(.525);                                          //ADJUST THIS
         liftArm.setTargetPosition(-3000);
         liftArm.setPower(0.5);
 */
-       dropLift(0, 0.5);
-        sleep(1000);     // pause for servos to move
+       dropLift(-liftArmCurrentPosition, 0.5);
+        sleep(3000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -88,14 +131,12 @@ public class TesterAutonomous extends Robot4592 {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderDrive(double speed,
-                             double leftInches1, double leftInches2, double rightInches1,double rightInches2,
-                             double timeoutS) {
+    public void encoderDrive(double speed, double leftInches1, double leftInches2, double rightInches1,double rightInches2, double timeoutS) {
         int new_tLeftTarget;
         int new_tRightTarget;
         int new_bLeftTarget;
         int new_bRightTarget;
-// Step through each leg of the path,
+
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // encoderDrive(drive_Speed, Front Left, Front Right, Rear Left, Rear Right, timeout)
         //encoderDrive(DRIVE_SPEED,  48,  48, 48, 48, 1.0);  // Drive Straight
@@ -106,6 +147,7 @@ public class TesterAutonomous extends Robot4592 {
         //encoderDrive(DRIVE_SPEED, 12, 12, -12, -12, 1.0);//Strafe Left
         //encoderDrive(DRIVE_SPEED, -2, 2, -2, 2, 1.0);//Go Forward
         // Ensure that the opmode is still active
+
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
@@ -161,22 +203,22 @@ public class TesterAutonomous extends Robot4592 {
         //  sleep(250);   // optional pause after each move
     }
     private void strafeLeft(double speed, double distance){
-        encoderDrive(speed, -distance, distance, -distance, distance, 1.0);
+        encoderDrive(speed, -distance, distance, -distance, distance, 2.5);
     }
     private void strafeRight(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 1.0);
+        encoderDrive(speed, distance, distance, distance, distance, 3.0);
     }
     private void driveForward(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 1.0);
+        encoderDrive(speed, distance, distance, distance, distance, 3.0);
     }
     private void driveBack(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 1.0);
+        encoderDrive(speed, -distance, -distance, -distance, -distance, 3.0);
     }
     private void turnLeft(double speed, double distance){
-        encoderDrive(speed, distance, -distance, distance, -distance, 1.0);
+        encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
     }
     private void turnRight(double speed, double distance){
-        encoderDrive(speed, -distance, distance, distance, -distance, 1.0);
+        encoderDrive(speed, -distance, distance, distance, -distance, 3.0);
     }
 
 
@@ -184,6 +226,8 @@ public class TesterAutonomous extends Robot4592 {
 
         liftArm.setTargetPosition(position);
         liftArm.setPower(power);
+        //Added by AK
+        liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 }
