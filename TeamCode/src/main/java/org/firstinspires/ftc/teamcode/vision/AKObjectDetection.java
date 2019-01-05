@@ -54,7 +54,7 @@ import java.util.List;
  * is explained below.
  */
 //@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-//@Disabled
+//@Disable
 public class AKObjectDetection extends Robot4592 {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -88,7 +88,10 @@ public class AKObjectDetection extends Robot4592 {
     private TFObjectDetector tfod;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode(){}
+
+    //@Override
+    public void action() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
@@ -104,7 +107,7 @@ public class AKObjectDetection extends Robot4592 {
         telemetry.update();
         waitForStart();
 
-        if (opModeIsActive()) {
+        //if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
@@ -145,7 +148,7 @@ public class AKObjectDetection extends Robot4592 {
                     }
                 }
             }
-        }
+       // }
 
         if (tfod != null) {
             tfod.shutdown();
@@ -162,7 +165,7 @@ public class AKObjectDetection extends Robot4592 {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.FRONT;
+        parameters.cameraDirection = CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);

@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="armeabi-v7a,armeabi"
-    api-level="23"
+    api-level="25"
     build-mode="COLD"
-    density="xxhdpi"
+    density="xhdpi"
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.2.1"
-    timestamp="1545529679217"
+    timestamp="1546726832842"
     token="-519517782184843066"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="262" />
+        duration="243" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="22" />
+        duration="14" />
     <task
         name="verifier"
-        duration="1" />
+        duration="3" />
 
     <artifact
-        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
+        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
         type="SPLIT" />
-    <artifact
-        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1545527169928"
+        timestamp="1546716044700"
         verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
+            type="SPLIT_MAIN" />
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
@@ -57,9 +60,6 @@
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
-            type="SPLIT" />
-        <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
         <artifact
@@ -68,39 +68,33 @@
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="FIELD_TYPE_CHANGE"
+        timestamp="1546724636123"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
             type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="METHOD_ADDED"
-        timestamp="1545528236789"
+        ir-eligibility="FIELD_TYPE_CHANGE"
+        timestamp="1546724895463"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1546726832842"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1545529418204"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1545529679217"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>

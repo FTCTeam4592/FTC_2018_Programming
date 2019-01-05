@@ -19,7 +19,7 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "BIGBOIBALLER", group = "Auto_Testing")
+//@Autonomous(name = "BIGBOIBALLER", group = "Auto_Testing")
 //@Disabled
 public class TensorFlow extends LinearOpMode {
     public static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
@@ -45,6 +45,7 @@ public class TensorFlow extends LinearOpMode {
      * localization engine.
      */
     public VuforiaLocalizer vuforia;
+    public String gp = "";
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
@@ -69,7 +70,7 @@ public class TensorFlow extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        if (opModeIsActive()) {
+       // if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
@@ -100,22 +101,35 @@ public class TensorFlow extends LinearOpMode {
                             if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                                 if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                                     telemetry.addData("Gold Mineral Position", "Left");
+                                    gp = "left";
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                                     telemetry.addData("Gold Mineral Position", "Right");
+                                    gp = "right";
                                 } else {
                                     telemetry.addData("Gold Mineral Position", "Center");
+                                    gp = "center";
                                 }
                             }
                         }
                         telemetry.update();
                     }
+                    else{
+                        gp = "none";
+                    }
                 }
             }
-        }
+
+
+       // }
+
 
         if (tfod != null) {
             tfod.shutdown();
         }
+    }
+
+    public String getPosition(){
+        return gp;
     }
 
     /**

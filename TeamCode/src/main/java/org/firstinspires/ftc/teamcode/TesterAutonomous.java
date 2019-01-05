@@ -4,19 +4,64 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.vision.AKObjectDetection;
-import org.firstinspires.ftc.teamcode.vision.MasterVision;
-import org.firstinspires.ftc.teamcode.vision.SampleRandomizedPositions;
+
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+import java.util.List;
 
 
-@Autonomous(name="AUTONOMOUS_2019_01", group="Encoder")
+@Autonomous(name="AUTONOMOUS_2019_05", group="Encoder")
 //@Disabled
+
+
 public class TesterAutonomous extends Robot4592 {
 
     /* Declare OpMode members. */
 
     private ElapsedTime     runtime = new ElapsedTime();
+
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+
+    private String gp = "";
+
+    private DistanceSensor rDS;
+
+
+
+    /*
+     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
+     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
+     * web site at https://developer.vuforia.com/license-manager.
+     *
+     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+     * random data. As an example, here is a example of a fragment of a valid key:
+     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
+     * Once you've obtained a license key, copy the string from the Vuforia web site
+     * and paste it in to your code on the next line, between the double quotes.
+     */
+    private static final String VUFORIA_KEY = "AR28rTb/////AAAAGdmyxbWoaEUfpgbw+HH9dAR6pd2GE0zLPpsObm9c3iyHvFxLGIrvMEkriYpEMFXybIOF1ng9sKMrJr1He8aXsUQ+7zxItkmGs69z3vTyLgRRD0eUrIJXViYt+tk6IzPYE+4Z9v5hWKteebG3TfzVmT/H/kg6vMLzQblDYNcz4JJZYrCq2axfHBhrDp6ljJQv0esY5DacKVrFLn1H6Jkaxe0vuZFsOveYpTzRdY4v4UuXqEwUxz+NdM/++RZncWkbftEpcLaf1tMFkTZBCOdQ5Tx+HXoT1bpepy1hHF1E6+cwxiUxZAx1ZxbsH5IJ+TfVtk2GjGD1R9CqSqvDE+8fWY12BOZP3PTSdHLaVgCmw/hq";
+
+    /**
+     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+     * localization engine.
+     */
+    private VuforiaLocalizer vuforia;
+
+    /**
+     * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
+     * Detection engine.
+     */
+    private TFObjectDetector tfod;
+
 
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120.0 ;    // eg: AndyMark NeverRest40 Motor Encoder
@@ -25,12 +70,16 @@ public class TesterAutonomous extends Robot4592 {
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .5;
     static final double     TURN_SPEED              = .5;
-    MasterVision vision;
-    SampleRandomizedPositions goldPosition;
-    AKObjectDetection detected = new AKObjectDetection();
+   // MasterVision vision;
+    //SampleRandomizedPositions goldPosition;
+   AKObjectDetection detected = new AKObjectDetection();
+
 
     @Override
     public void runOpMode() {
+
+        rDS = hardwareMap.get(DistanceSensor.class,"rearDistanceSensor");
+
 
         auto();
 
@@ -50,6 +99,7 @@ public class TesterAutonomous extends Robot4592 {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.addData("lift Arm [position", liftArm.getCurrentPosition());
+        telemetry.addData("lift Arm [position", liftArm.getCurrentPosition());
         telemetry.update();
         //flip_out.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //flip_out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -67,10 +117,16 @@ public class TesterAutonomous extends Robot4592 {
         telemetry.update();
 
 
-        liftArm.setTargetPosition(0);
-        liftArm.setPower(-0.5);
+        //liftArm.setTargetPosition(0);
+        //.addData("hi","hi");
+        //.update();
+        //liftArm.setPower(-0.5);
+
         // Wait for the game to start (driver presses PLAY)
-        waitForStart();
+        while(!opModeIsActive() && !isStopRequested()){
+            telemetry.addData("status","waiting for start command...");
+            telemetry.update();
+        }
 
         //vision.disable();// disables tracking algorithms. this will free up your phone's processing power for other jobs.
 
@@ -78,14 +134,33 @@ public class TesterAutonomous extends Robot4592 {
 
        // telemetry.addData("goldPosition was", goldPosition);// giving feedback
         //Drop Robot from the Lander
-        dropLift(-6000, 0.6);
+        dropLift(-3000, 0.6);
         sleep(3000);
         int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
 
+        liftArm.setPower(0);
+
         //To release the hook from the Lander
-        driveForward(0.5, 6);
-        strafeLeft(0.5,30);
-        detected.runOpMode();
+        driveForward(0.5, 13);
+        sleep(1000);
+        dropLift(0,0.6);
+        action();
+
+       // sleep(4000); //allow the thing to read the gold position
+        //strafeLeft(0.5,40);
+
+       /* if(gp.equals("right")) {
+            driveForward(0.5, 9);
+        }
+        else if(gp.equals("center")){
+            driveForward(0.5, -4);
+        }
+        else if(gp.equals("left")){
+            driveForward(0.5, -20);
+        }
+*/
+
+
         /*vision.enable();
         sleep(2000);
         vision.disable();
@@ -116,7 +191,9 @@ public class TesterAutonomous extends Robot4592 {
         liftArm.setTargetPosition(-3000);
         liftArm.setPower(0.5);
 */
-       dropLift(-liftArmCurrentPosition, 0.5);
+       dropLift(0, 0.5);
+        telemetry.addData("hello","hello");
+        telemetry.update();
         sleep(3000);     // pause for servos to move
 
         telemetry.addData("Path", "Complete");
@@ -151,10 +228,10 @@ public class TesterAutonomous extends Robot4592 {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            new_tLeftTarget = leftFront.getCurrentPosition() + (int)(leftInches1 * COUNTS_PER_INCH);
-            new_tRightTarget = rightFront.getCurrentPosition() + (int)(rightInches1 * COUNTS_PER_INCH);
-            new_bLeftTarget = leftRear.getCurrentPosition() + (int)(leftInches2 * COUNTS_PER_INCH);
-            new_bRightTarget = rightRear.getCurrentPosition() + (int)(rightInches2 * COUNTS_PER_INCH);
+            new_tLeftTarget = leftFront.getCurrentPosition() + (int) (leftInches1 * COUNTS_PER_INCH);
+            new_tRightTarget = rightFront.getCurrentPosition() + (int) (rightInches1 * COUNTS_PER_INCH);
+            new_bLeftTarget = leftRear.getCurrentPosition() + (int) (leftInches2 * COUNTS_PER_INCH);
+            new_bRightTarget = rightRear.getCurrentPosition() + (int) (rightInches2 * COUNTS_PER_INCH);
             leftFront.setTargetPosition(new_tLeftTarget);
             rightFront.setTargetPosition(new_tRightTarget);
             leftRear.setTargetPosition(new_bLeftTarget);
@@ -176,31 +253,38 @@ public class TesterAutonomous extends Robot4592 {
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    ( leftFront.isBusy() && rightFront.isBusy()  && leftRear.isBusy() && rightRear.isBusy()))
+                    (leftFront.isBusy() && rightFront.isBusy() && leftRear.isBusy() && rightRear.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d :%7d :%7d", new_tLeftTarget,  new_tRightTarget, new_bLeftTarget, new_bRightTarget);
-            telemetry.addData("Path2",  "Running at %7d :%7d :%7d :%7d",
-                    leftFront.getCurrentPosition(),
-                    rightFront.getCurrentPosition(),
-                    leftRear.getCurrentPosition(),
-                    rightRear.getCurrentPosition());
-            telemetry.update();
+                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", new_tLeftTarget, new_tRightTarget, new_bLeftTarget, new_bRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d :%7d :%7d",
+                        leftFront.getCurrentPosition(),
+                        rightFront.getCurrentPosition(),
+                        leftRear.getCurrentPosition(),
+                        rightRear.getCurrentPosition());
+                telemetry.update();
+
+               // TensorFlow tflow = new TensorFlow();
+
+                //telemetry.addData("Position", tflow.getPosition());
+               // telemetry.update();
+
+            }
+
+            // Stop all motion;
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftRear.setPower(0);
+            rightRear.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
         }
-
-        // Stop all motion;
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftRear.setPower(0);
-        rightRear.setPower(0);
-
-        // Turn off RUN_TO_POSITION
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //  sleep(250);   // optional pause after each move
     }
     private void strafeLeft(double speed, double distance){
         encoderDrive(speed, -distance, distance, -distance, distance, 2.5);
@@ -215,11 +299,199 @@ public class TesterAutonomous extends Robot4592 {
         encoderDrive(speed, -distance, -distance, -distance, -distance, 3.0);
     }
     private void turnLeft(double speed, double distance){
-        encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
+        encoderDrive(speed, -distance, -distance, distance, distance, 3.0); //45 is 90 degrees
     }
     private void turnRight(double speed, double distance){
         encoderDrive(speed, -distance, distance, distance, -distance, 3.0);
     }
+    private void driveWithSensor(double speed, double desiredDistance) {
+        while (rDS.getDistance(DistanceUnit.INCH) > desiredDistance + 1) {
+            leftFront.setPower(speed);
+            rightFront.setPower(speed);
+            leftRear.setPower(speed);
+            rightRear.setPower(speed);
+
+        }
+    }
+
+    public void action() {
+        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+        // first.
+        initVuforia();
+
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
+
+        /** Wait for the game to begin */
+        telemetry.addData(">", "Press Play to start tracking");
+        telemetry.update();
+        waitForStart();
+
+        if (opModeIsActive()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (tfod != null) {
+                tfod.activate();
+            }
+
+            while (opModeIsActive()) {
+                if (tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        if (updatedRecognitions.size() > 0) {
+                            int goldMineralX = -1;
+                            int silverMineral1X = -1;
+                            int silverMineral2X = -1;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                    goldMineralX = (int) recognition.getLeft();
+                                } else if (silverMineral1X == -1) {
+                                    silverMineral1X = (int) recognition.getLeft();
+                                } else {
+                                    silverMineral2X = (int) recognition.getLeft();
+                                }
+                            }
+                            if (goldMineralX != -1 && silverMineral1X != -1 || goldMineralX != -1 && silverMineral2X != -1 || silverMineral1X != -1 && silverMineral2X != -1) {
+                                if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+                                    telemetry.addData("Gold Mineral Position", "Left");
+                                    gp = "left";
+                                    strafeLeft(0.5,40);
+                                    //sleep(4000); //allow the thing to read the gold position
+
+                                    driveForward(0.5, -45);
+                                    telemetry.addData("going to", gp);
+                                    telemetry.update();
+                                    tfod.deactivate();
+
+                                    strafeLeft(0.5,25);
+                                    strafeLeft(0.5,-25);
+
+                                    driveForward(0.5,-65);
+                                    //driveWithSensor(-0.5, 15);
+                                    telemetry.addData("distance", rDS.getDistance(DistanceUnit.INCH));
+                                    telemetry.update();
+                                    turnLeft(0.5, 22.5);
+                                    strafeLeft(0.5,10);
+                                    driveForward(0.5,-75);
+                                    flipUp.setPosition(0.4);
+                                    extendUp.setTargetPosition(3500);
+                                    extendUp.setPower(0.4);
+                                    sleep(2000);
+                                    flipUp.setPosition(0);
+                                    sleep(100);
+                                    flipUp.setPosition(0);
+                                    extendUp.setTargetPosition(10);
+                                    extendUp.setPower(0.4);
+
+
+                                } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+                                    telemetry.addData("Gold Mineral Position", "Right");
+                                    gp = "right";
+                                    strafeLeft(0.5,40);
+                                    //sleep(4000); //allow the thing to read the gold position
+
+                                    driveForward(0.5, 22.5);
+                                    telemetry.addData("going to", gp);
+                                    telemetry.update();
+                                    tfod.deactivate();
+
+                                    strafeLeft(0.5,25);
+                                    strafeLeft(0.5,-25);
+
+                                    driveForward(0.5,-165);
+                                    //driveWithSensor(-0.5, 15);
+                                    telemetry.addData("distance", rDS.getDistance(DistanceUnit.INCH));
+                                    telemetry.update();
+                                    turnLeft(0.5, 22.5);
+
+                                    strafeLeft(0.5,10);
+                                    driveForward(0.5,-75);
+                                    flipUp.setPosition(0);
+                                    extendUp.setTargetPosition(1000);
+                                    extendUp.setPower(0.4);
+                                    flipUp.setPosition(0.92);
+                                    sleep(100);
+                                    flipUp.setPosition(0);
+                                    extendUp.setTargetPosition(10);
+                                    extendUp.setPower(0.4);
+
+                                } else {
+                                    telemetry.addData("Gold Mineral Position", "Center");
+                                    gp = "center";
+                                    strafeLeft(0.5,40);
+                                    //sleep(4000); //allow the thing to read the gold position
+                                    driveForward(0.5, -15);
+                                    telemetry.addData("going to", gp);
+                                    telemetry.update();
+                                    tfod.deactivate();
+
+                                    strafeLeft(0.5,25);
+                                    strafeLeft(0.5,-25);
+
+                                    driveForward(0.5,-95);
+                                    //driveWithSensor(-0.5, 15);
+                                    telemetry.addData("distance", rDS.getDistance(DistanceUnit.INCH));
+                                    telemetry.update();
+                                    turnLeft(0.5, 22.5);
+                                    strafeLeft(0.5,10);
+                                    driveForward(0.5,-75);
+                                    flipUp.setPosition(0);
+                                    extendUp.setTargetPosition(1000);
+                                    extendUp.setPower(0.4);
+                                    flipUp.setPosition(0.92);
+                                    sleep(100);
+                                    flipUp.setPosition(0);
+                                    extendUp.setTargetPosition(10);
+                                    extendUp.setPower(0.4);
+                                }
+                            }
+                        }
+                        telemetry.update();
+                    }
+                }
+            }
+        }
+
+        if (tfod != null) {
+            tfod.shutdown();
+        }
+    }
+
+    /**
+     * Initialize the Vuforia localization engine.
+     */
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the Tensor Flow Object Detection engine.
+    }
+
+    /**
+     * Initialize the Tensor Flow Object Detection engine.
+     */
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+    }
+
+
 
 
     private void dropLift(int position, double power){
@@ -231,3 +503,4 @@ public class TesterAutonomous extends Robot4592 {
 
     }
 }
+

@@ -126,7 +126,7 @@ public abstract class Robot4592 extends LinearOpMode {
         extendOut = hardwareMap.dcMotor.get("extendOut");
         flipOut = hardwareMap.servo.get("flipOut");
         flipUp = hardwareMap.servo.get("flipUp");
-        sensorDis = hardwareMap.get(DistanceSensor.class, "rightDistanceSensor");
+        //sensorDis = hardwareMap.get(DistanceSensor.class, "rightDistanceSensor");
 
 
 
