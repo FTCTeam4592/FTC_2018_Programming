@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RobotBase;
  * Created by user on 12/9/17.
  */
 
-
+@Disabled
 @TeleOp(name = "DriveTest")
 
 public class DriveTest extends Robot4592 {

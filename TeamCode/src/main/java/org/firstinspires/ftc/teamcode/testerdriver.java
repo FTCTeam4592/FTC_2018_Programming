@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot4592;
 
-@TeleOp(name = "testerdriver")
+@TeleOp(name = "testerdriver", group="Test")
 
 
 public class testerdriver extends Robot4592 {

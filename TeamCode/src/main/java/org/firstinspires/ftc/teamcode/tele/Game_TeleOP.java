@@ -9,21 +9,21 @@ import org.firstinspires.ftc.teamcode.Robot4592;
 
 
 
-@TeleOp(name = "Game TeleOp")
+@TeleOp(name = "Game TeleOp", group="TeleOp Tournament")
 public class Game_TeleOP extends Robot4592 {
 
         @Override
         public void runOpMode() {
 
+            // Run TeleOp Initialization
             tele();
-            liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            flipOut.setPosition(0);
 
+            liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            flipOut.setPosition(0);
 
             flipUp.setPosition(0.49);
 
-            //int originalFlipPos = flipOut.getCurrentPosition();
-           // flipOut.setTargetPosition(150);
 
             waitForStart();
 
@@ -99,7 +99,6 @@ public class Game_TeleOP extends Robot4592 {
                     ext = 0;
                 }
 
-
                 extendOut.setPower(ext);
 
                 telemetry.addData("test", flipOut.getDirection());
@@ -109,6 +108,7 @@ public class Game_TeleOP extends Robot4592 {
                 //flipOut.setDirection(Servo.Direction.REVERSE);
 
                 if (gamepad2.dpad_down && (flipOut.getPosition() < 0.2)) {
+                    // Flip out to the mat
 
                     telemetry.addData("test", flipOut.getDirection());
                     telemetry.addData("current pos", flipOut.getPosition());

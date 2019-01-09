@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 
-@TeleOp(name = "EncoderTest", group = "TeleOp")
+@TeleOp(name = "EncoderTest", group = "Test")
 class EncoderTest : LinearOpMode() {
 
     private var leftFront: DcMotor? = null

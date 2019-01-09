@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_USING_ENCODER;
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
 
-@TeleOp(name = " Test LiftArm")
+@TeleOp(name = " Test LiftArm", group="Test")
 public class AK_TestLiftArm extends LinearOpMode {
 
 

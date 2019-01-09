@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot4592;
 
 @TeleOp(name = "drive")
-
+@Disabled
 
 public class drive extends Robot4592 {
 

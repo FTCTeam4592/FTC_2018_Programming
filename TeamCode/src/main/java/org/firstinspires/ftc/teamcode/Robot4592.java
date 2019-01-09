@@ -46,12 +46,6 @@ public abstract class Robot4592 extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-/*
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-*/
 
         // Set to FORWARD if using AndyMark motors
         // Set all motors to zero power
@@ -62,21 +56,13 @@ public abstract class Robot4592 extends LinearOpMode {
 
         extendUp = hardwareMap.dcMotor.get("extendUp");
         extendOut = hardwareMap.dcMotor.get("extendOut");
+
         flipOut = hardwareMap.servo.get("flipOut");
+        flipOut.setPosition(0);
         flipUp = hardwareMap.servo.get("flipUp");
-
-
-
-
-
-
-        // Use RUN_USING_ENCODERS if encoders are installed.
-
 
         extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extendOut.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
 
         extendUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendOut.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -98,7 +84,6 @@ public abstract class Robot4592 extends LinearOpMode {
         leftRear = hardwareMap.dcMotor.get("leftRear");
         rightRear = hardwareMap.dcMotor.get("rightRear");
 
-
         leftFront.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -114,43 +99,38 @@ public abstract class Robot4592 extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        // Set to FORWARD if using AndyMark motors
         // Set all motors to zero power
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
         rightRear.setPower(0);
 
-        extendUp = hardwareMap.dcMotor.get("extendUp");
-        extendOut = hardwareMap.dcMotor.get("extendOut");
-        flipOut = hardwareMap.servo.get("flipOut");
-        flipUp = hardwareMap.servo.get("flipUp");
-        //sensorDis = hardwareMap.get(DistanceSensor.class, "rightDistanceSensor");
-
-
-
-
-
-
-        // Use RUN_USING_ENCODERS if encoders are installed.
-
-
-        extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extendOut.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
-
-        extendUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendOut.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-// Intake
-        Intake = hardwareMap.crservo.get("Intake");
-
-// Lift Arm
+        // Lift Arm - To get off the Lander
         liftArm = hardwareMap.dcMotor.get("liftArm");
         liftArm.setDirection(DcMotor.Direction.REVERSE);
         liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Extend Up and Flip into Lander components
+
+        extendUp = hardwareMap.dcMotor.get("extendUp");
+        extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extendUp.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        flipUp = hardwareMap.servo.get("flipUp");
+
+
+        flipOut = hardwareMap.servo.get("flipOut");
+
+
+        // Extend Out - This is not used in Autonomous
+
+        extendOut = hardwareMap.dcMotor.get("extendOut");
+        extendOut.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extendOut.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Intake - This is not used in Autonomous
+        Intake = hardwareMap.crservo.get("Intake");
+
+
     }
 
 
