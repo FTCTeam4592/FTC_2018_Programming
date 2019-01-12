@@ -40,16 +40,17 @@ public class Autonomous_Home_Side extends Robot4592 {
     static final double     DRIVE_GEAR_REDUCTION    = .5 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = .5;
+    static final double     DRIVE_SPEED             = .6;
     static final double     TURN_SPEED              = .5;
-    static final int        TURN_ANGLE              = 60;
+    static final int        TURN_ANGLE              = 65;
     static final int        MOVE_MINERAL            = 25;
+    static final int        STRAFE_TO_WALL          = 14;
     static final int        DISTANCE_TO_LEFT_M      = 45;
     static final int        RIGHT_M_TO_CENTER_M     = 45; //Check this
     static final int        CENTER_M_TO_LEFT_M      = 18; // check this
     static final int        LEFT_M_TO_WALL          = 65; //THIS IS GOOD
-    static final int        WALL_TO_HOME            = 75; //THIS IS GOOD
-    static final int        HOME_TO_CRATER          = 125; //THIS IS GOOD
+    static final int        WALL_TO_HOME            = 85; //THIS IS GOOD
+    static final int        HOME_TO_CRATER          = 115; //THIS IS GOOD
 
 
    AKObjectDetection detected = new AKObjectDetection();
@@ -203,16 +204,16 @@ public class Autonomous_Home_Side extends Robot4592 {
         encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
     }
     private void driveForward(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 3.0);
+        encoderDrive(speed, distance, distance, distance, distance, 4.0);
     }
     private void driveReverse(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 3.0);
+        encoderDrive(speed, -distance, -distance, -distance, -distance, 4.0);
     }
     private void turnLeft(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, distance, distance, 3.0); //45 is 90 degrees
+        encoderDrive(speed, -distance, -distance, distance, distance, 4.0); //45 is 90 degrees
     }
     private void turnRight(double speed, double distance){
-        encoderDrive(speed, distance, distance, -distance, -distance, 3.0);
+        encoderDrive(speed, distance, distance, -distance, -distance, 4.0);
     }
     private void driveWithSensor(double speed, double desiredDistance) {
         while (rDS.getDistance(DistanceUnit.INCH) > desiredDistance + 1) {
@@ -277,6 +278,8 @@ public class Autonomous_Home_Side extends Robot4592 {
 
                                     strafeLeft(0.5,40); //Strafe towards minerals and away from lander
 
+                                    //doRestofAutonomous();
+                                    //Or all this stuff
                                     driveReverse(0.5, DISTANCE_TO_LEFT_M); // Drive to The Gold Mineral
 
                                     telemetry.addData("going to", gp);
@@ -290,7 +293,7 @@ public class Autonomous_Home_Side extends Robot4592 {
 
                                     turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeLeft(0.7,10); //Strafe to wall
+                                    strafeRight(0.7,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
@@ -314,7 +317,7 @@ public class Autonomous_Home_Side extends Robot4592 {
 
                                     strafeLeft(0.5,40);
 
-                                    driveForward(0.5, 20);
+                                    driveForward(DRIVE_SPEED, 20);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
@@ -322,13 +325,15 @@ public class Autonomous_Home_Side extends Robot4592 {
                                     strafeLeft(0.5,MOVE_MINERAL);
                                     strafeLeft(0.5,-MOVE_MINERAL);
 
-                                    driveReverse(0.5, RIGHT_M_TO_CENTER_M );
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    driveReverse(DRIVE_SPEED, (RIGHT_M_TO_CENTER_M + CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL));
+                                    //driveReverse(0.5, CENTER_M_TO_LEFT_M);
+                                    //doRestofAutonomous();
+                                    //Or all this stuff
+                                    //driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
                                     turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeLeft(0.7,10); //Strafe to wall
+                                    strafeRight(0.7,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
@@ -359,12 +364,14 @@ public class Autonomous_Home_Side extends Robot4592 {
                                     strafeLeft(0.5,MOVE_MINERAL);
                                     strafeLeft(0.5,-MOVE_MINERAL);
 
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    driveReverse(DRIVE_SPEED, (CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL));//Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //Or all this stuff
+                                    //driveReverse(0.5, LEFT_M_TO_WALL);
 
                                     turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeLeft(0.7,10); //Strafe to wall
+                                    strafeRight(0.7,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
@@ -395,12 +402,14 @@ public class Autonomous_Home_Side extends Robot4592 {
                                     strafeLeft(0.5,25);
                                     strafeLeft(0.5,-25);
 
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    driveReverse(DRIVE_SPEED, (CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL)); //Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //Or all this stuff
+                                    //driveReverse(0.5, LEFT_M_TO_WALL);
 
                                     turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeLeft(0.7,10); //Strafe to wall
+                                    strafeRight(0.7,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
@@ -431,11 +440,13 @@ public class Autonomous_Home_Side extends Robot4592 {
                                     strafeLeft(0.5,25);
                                     strafeLeft(0.5,-25);
 
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //Or all this stuff
+                                    driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
                                     turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeLeft(0.7,10); //Strafe to wall
+                                    strafeRight(0.7,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
@@ -463,6 +474,39 @@ public class Autonomous_Home_Side extends Robot4592 {
         if (tfod != null) {
             tfod.shutdown();
         }
+    }
+
+    private void doRestofAutonomous() {
+
+        driveReverse(0.5, DISTANCE_TO_LEFT_M); // Drive to The Gold Mineral
+
+        telemetry.addData("going to", gp);
+        telemetry.update();
+        tfod.deactivate();
+
+        strafeLeft(0.5,MOVE_MINERAL);  //Shift the mineral
+        strafeRight(0.7,MOVE_MINERAL); //Move Back
+
+        driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+
+        turnRight(0.5, TURN_ANGLE); //Turn Parallel to Wall
+
+        strafeLeft(0.7,10); //Strafe to wall
+
+        driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
+
+        flipUp.setPosition(0.49);
+        extendUp.setTargetPosition(2500);
+        extendUp.setPower(0.4);
+        sleep(2000);
+        flipUp.setPosition(.92);
+        sleep(2000);
+        flipUp.setPosition(.4);
+        extendUp.setTargetPosition(10);
+        extendUp.setPower(0.4);
+
+        driveForward(0.9, HOME_TO_CRATER);
+        flipOut.setPosition(0.35);
     }
 
     /**

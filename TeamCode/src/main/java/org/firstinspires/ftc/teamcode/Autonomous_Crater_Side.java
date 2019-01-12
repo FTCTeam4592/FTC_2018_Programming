@@ -42,15 +42,17 @@ public class Autonomous_Crater_Side extends Robot4592 {
     static final double     DRIVE_GEAR_REDUCTION    = .5 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = .5;
+    static final double     DRIVE_SPEED             = .6;
     static final double     TURN_SPEED              = .5;
     static final int        MOVE_MINERAL            = 25;
     static final int        DISTANCE_TO_LEFT_M      = 45;
     static final int        RIGHT_M_TO_CENTER_M     = 45; //Check this
     static final int        CENTER_M_TO_LEFT_M      = 18; // check this
     static final int        LEFT_M_TO_WALL          = 65; //THIS IS GOOD
+    static final int        CENTER_TO_WALL          = CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
+    static final int        RIGHT_TO_WALL           = RIGHT_M_TO_CENTER_M + CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
     static final int        WALL_TO_HOME            = 75; //THIS IS GOOD
-    static final int        HOME_TO_CRATER          = 125; //THIS IS GOOD
+    static final int        HOME_TO_CRATER          = 120; //THIS IS GOOD
 
 
    AKObjectDetection detected = new AKObjectDetection();
@@ -101,13 +103,14 @@ public class Autonomous_Crater_Side extends Robot4592 {
         driveForward(0.5, 13);
         sleep(1000);
 
-        dropLift(0,0.6);
+
 
         //Check For Gold Mineral and complete rest of Autonomous
         action();
 
         // This will bre removed when we go to production code. Just saves having to rewind
         dropLift(0, 0.5);
+
         telemetry.addData("hello","hello");
         telemetry.update();
         sleep(3000);     // pause for servos to move
@@ -207,7 +210,7 @@ public class Autonomous_Crater_Side extends Robot4592 {
         encoderDrive(speed, distance, distance, distance, distance, 3.0);
     }
     private void driveReverse(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 3.0);
+        encoderDrive(speed, -distance, -distance, -distance, -distance, 4.0);
     }
     private void turnLeft(double speed, double distance){
         encoderDrive(speed, -distance, -distance, distance, distance, 3.0); //45 is 90 degrees
@@ -276,27 +279,28 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     gp = "left";
 
-                                    strafeLeft(0.5,40); //Strafe towards minerals and away from lander
+                                    strafeLeft(DRIVE_SPEED,40); //Strafe towards minerals and away from lander
 
-                                    driveReverse(0.5, DISTANCE_TO_LEFT_M); // Drive to The Gold Mineral
+                                    driveReverse(DRIVE_SPEED, DISTANCE_TO_LEFT_M); // Drive to The Gold Mineral
 
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
 
-                                    strafeLeft(0.5,MOVE_MINERAL);  //Shift the mineral
-                                    strafeRight(0.7,MOVE_MINERAL); //Move Back
+                                    pushGold();
 
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //OR ALL THIS
+                                    driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
-                                    turnLeft(0.5, 20); //Turn Parallel to Wall
+                                    turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
 
                                     strafeLeft(0.7,10); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
                                     flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(2500);
+                                    extendUp.setTargetPosition(1500);
                                     extendUp.setPower(0.4);
                                     sleep(2000);
                                     flipUp.setPosition(.92);
@@ -307,34 +311,36 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     driveForward(0.9, HOME_TO_CRATER);
                                     flipOut.setPosition(0.35);
+                                    dropLift(0,0.6);
 
 
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                                     telemetry.addData("Gold Mineral Position", "Right");
                                     gp = "right";
 
-                                    strafeLeft(0.5,40);
+                                    strafeLeft(DRIVE_SPEED,40);
 
-                                    driveForward(0.5, 20);
+                                    driveForward(DRIVE_SPEED, 20);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
 
-                                    strafeLeft(0.5,MOVE_MINERAL);
-                                    strafeLeft(0.5,-MOVE_MINERAL);
+                                    pushGold();
 
-                                    driveReverse(0.5, RIGHT_M_TO_CENTER_M );
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    driveReverse(DRIVE_SPEED, RIGHT_TO_WALL);
+                                    //driveReverse(DRIVE_SPEED, CENTER_M_TO_LEFT_M);
+                                    //doRestofAutonomous();
+                                    //OR ALL THIS
+                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
-                                    turnLeft(0.5, 20); //Turn Parallel to Wall
+                                    turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
 
                                     strafeLeft(0.7,10); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
                                     flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(2500);
+                                    extendUp.setTargetPosition(1500);
                                     extendUp.setPower(0.4);
                                     sleep(2000);
                                     flipUp.setPosition(.92);
@@ -345,32 +351,33 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     driveForward(0.9, HOME_TO_CRATER);
                                     flipOut.setPosition(0.35);
+                                    dropLift(0,0.6);
 
                                 } else {
                                     telemetry.addData("Gold Mineral Position", "Center");
                                     gp = "center";
 
-                                    strafeLeft(0.5,40);
+                                    strafeLeft(DRIVE_SPEED,40);
                                     //sleep(4000); //allow the thing to read the gold position
-                                    driveForward(0.5, -15);
+                                    driveForward(DRIVE_SPEED, -15);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
 
-                                    strafeLeft(0.5,MOVE_MINERAL);
-                                    strafeLeft(0.5,-MOVE_MINERAL);
+                                    pushGold();
 
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
-
-                                    turnLeft(0.5, 20); //Turn Parallel to Wall
+                                    driveReverse(DRIVE_SPEED, CENTER_TO_WALL);
+                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //OR ALL THIS
+                                    turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
 
                                     strafeLeft(0.7,10); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
                                     flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(2500);
+                                    extendUp.setTargetPosition(1500);
                                     extendUp.setPower(0.4);
                                     sleep(2000);
                                     flipUp.setPosition(.92);
@@ -381,32 +388,34 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     driveForward(0.9, HOME_TO_CRATER);
                                     flipOut.setPosition(0.35);
+                                    dropLift(0,0.6);
                                 }
                             } else {
                                 if(goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                                     telemetry.addData("Gold Mineral Position", "Center");
                                     gp = "center";
-                                    strafeLeft(0.5,40);
+                                    strafeLeft(DRIVE_SPEED,40);
                                     //sleep(4000); //allow the thing to read the gold position
-                                    driveForward(0.5, -15);
+                                    driveForward(DRIVE_SPEED, -15);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
 
-                                    strafeLeft(0.5,25);
-                                    strafeLeft(0.5,-25);
+                                    pushGold();
 
-                                    driveReverse(0.5, CENTER_M_TO_LEFT_M);
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    driveReverse(DRIVE_SPEED, CENTER_TO_WALL);
+                                    //doRestofAutonomous();
+                                    //OR ALL THIS
+                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
-                                    turnLeft(0.5, 20); //Turn Parallel to Wall
+                                    turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
 
                                     strafeLeft(0.7,10); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
                                     flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(2500);
+                                    extendUp.setTargetPosition(1500);
                                     extendUp.setPower(0.4);
                                     sleep(2000);
                                     flipUp.setPosition(.92);
@@ -417,31 +426,33 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     driveForward(0.9, HOME_TO_CRATER);
                                     flipOut.setPosition(0.35);
+                                    dropLift(0,0.6);
 
                                 } else if(silverMineral1X > goldMineralX) {
                                     telemetry.addData("Gold Mineral Position", "Left");
                                     gp = "left";
-                                    strafeLeft(0.5,40);
+                                    strafeLeft(DRIVE_SPEED,40);
                                     //sleep(4000); //allow the thing to read the gold position
 
-                                    driveForward(0.5, -45);
+                                    driveForward(DRIVE_SPEED, -45);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();
 
-                                    strafeLeft(0.5,25);
-                                    strafeLeft(0.5,-25);
+                                    pushGold();
 
-                                    driveReverse(0.5, LEFT_M_TO_WALL); //Drive Forward to the Wall
+                                    //doRestofAutonomous();
+                                    //OR ALL THIS
+                                    driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
 
-                                    turnLeft(0.5, 20); //Turn Parallel to Wall
+                                    turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
 
                                     strafeLeft(0.7,10); //Strafe to wall
 
                                     driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
 
                                     flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(2500);
+                                    extendUp.setTargetPosition(1500);
                                     extendUp.setPower(0.4);
                                     sleep(2000);
                                     flipUp.setPosition(.92);
@@ -452,6 +463,7 @@ public class Autonomous_Crater_Side extends Robot4592 {
 
                                     driveForward(0.9, HOME_TO_CRATER);
                                     flipOut.setPosition(0.35);
+                                    dropLift(0,0.6);
                                 }
                             }
                         }
@@ -464,6 +476,35 @@ public class Autonomous_Crater_Side extends Robot4592 {
         if (tfod != null) {
             tfod.shutdown();
         }
+    }
+
+    private void pushGold() {
+        strafeLeft(0.5,MOVE_MINERAL);  //Shift the mineral
+        strafeRight(0.6,MOVE_MINERAL); //Move Back
+    }
+
+    private void doRestofAutonomous() {
+        driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
+
+        turnLeft(DRIVE_SPEED, 20); //Turn Parallel to Wall
+
+        strafeLeft(0.7,10); //Strafe to wall
+
+        driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
+
+        flipUp.setPosition(0.49);
+        extendUp.setTargetPosition(1500); //changed from 2500
+        extendUp.setPower(0.4);
+        sleep(1250); //changed from 2000
+        flipUp.setPosition(.92);
+        sleep(1250); //changed from 2000
+        flipUp.setPosition(.4);
+        extendUp.setTargetPosition(10);
+        extendUp.setPower(0.4);
+
+        driveForward(0.9, HOME_TO_CRATER);
+        flipOut.setPosition(0.35);
+        dropLift(0,0.6);
     }
 
     /**
@@ -494,8 +535,6 @@ public class Autonomous_Crater_Side extends Robot4592 {
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
-
-
 
 
     private void dropLift(int position, double power){
