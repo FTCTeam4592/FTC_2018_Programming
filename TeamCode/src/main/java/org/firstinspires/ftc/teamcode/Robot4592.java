@@ -58,7 +58,7 @@ public abstract class Robot4592 extends LinearOpMode {
         extendOut = hardwareMap.dcMotor.get("extendOut");
 
         flipOut = hardwareMap.servo.get("flipOut");
-        flipOut.setPosition(0);
+        //flipOut.setPosition(0);
         flipUp = hardwareMap.servo.get("flipUp");
 
         extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

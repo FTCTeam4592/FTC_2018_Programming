@@ -20,7 +20,7 @@ public class Game_TeleOP extends Robot4592 {
 
             liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            flipOut.setPosition(0);
+            //flipOut.setPosition(0);
 
             flipUp.setPosition(0.49);
 
@@ -91,9 +91,9 @@ public class Game_TeleOP extends Robot4592 {
 
                 double ext;
 
-                if (gamepad2.right_bumper) {
+                if (gamepad2.right_bumper) { // && extendOut.getCurrentPosition()<5000  add this
                     ext = 1;
-                } else if (gamepad2.left_bumper) {
+                } else if (gamepad2.left_bumper) { // && extendOut.getCurrentPosition()>5000  add this
                     ext = -1;
                 } else {
                     ext = 0;
@@ -113,22 +113,21 @@ public class Game_TeleOP extends Robot4592 {
                     telemetry.addData("test", flipOut.getDirection());
                     telemetry.addData("current pos", flipOut.getPosition());
                     telemetry.update();
-                    flipOut.setPosition(0.35);
-                    //current = extendOut.getCurrentPosition();
+                    flipOut.setPosition(0.8);
                 } else if (gamepad2.dpad_up && (flipOut.getPosition() >0.2)) {
 
                    // flipOut.setDirection(Servo.Direction.FORWARD);
                     telemetry.addData("current pos", flipOut.getPosition());
                     telemetry.update();
-                    flipOut.setPosition(0.02);
+                    flipOut.setPosition(0.4);
                 }
 
                 if (gamepad2.dpad_left){
                     telemetry.addData("current pos", flipOut.getPosition());
-                    flipOut.setPosition(0.15);
+                    flipOut.setPosition(0.47);
                 }
 
-                if (gamepad2.y && (flipUp.getPosition() < 0.55)) {
+                if (gamepad2.y && (flipUp.getPosition() < 0.55) && (extendUp.getCurrentPosition()>550)) {
                     flipUp.setPosition(0.92);
                 } else if (gamepad2.y && (flipUp.getPosition() > 0.55)) {
                     flipUp.setPosition(0.49);

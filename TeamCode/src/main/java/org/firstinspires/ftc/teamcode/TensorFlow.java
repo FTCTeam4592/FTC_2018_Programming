@@ -70,7 +70,7 @@ public class TensorFlow extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-       // if (opModeIsActive()) {
+        if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
@@ -112,19 +112,19 @@ public class TensorFlow extends LinearOpMode {
                             }
                         }
                         telemetry.update();
-                    }
-                    else{
+                    } else {
                         gp = "none";
                     }
                 }
             }
 
 
-       // }
+            // }
 
 
-        if (tfod != null) {
-            tfod.shutdown();
+            if (tfod != null) {
+                tfod.shutdown();
+            }
         }
     }
 
@@ -142,7 +142,7 @@ public class TensorFlow extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
