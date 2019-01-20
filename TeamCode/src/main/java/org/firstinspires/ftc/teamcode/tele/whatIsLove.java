@@ -17,8 +17,9 @@ public class whatIsLove extends Robot4592 {
     public void runOpMode(){
 
         tele();
-        double originalFlipPos = flipOut.getPosition();
-        flipOut.setPosition(150);
+        double originalFlipPos = flipOut.getCurrentPosition();
+        flipOut.setTargetPosition(150);
+        flipOut.setPower(0.4);
 
         waitForStart();
 
@@ -120,14 +121,15 @@ public class whatIsLove extends Robot4592 {
             extendOut.setPower(ext);
 
             if(gamepad2.dpad_up){
-                flipOut.setPosition(550);
-                //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                //flipOut.setPower(0);
+                flipOut.setTargetPosition(550);
+                flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                flipOut.setPower(0);
             }
             if(gamepad2.dpad_down){
 
-                flipOut.setPosition(150);
-                //flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                flipOut.setTargetPosition(150);
+                flipOut.setPower(0.4);
+                flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             }
 
             if(gamepad2.y && (flipUp.getPosition() < 0.625)){
@@ -146,7 +148,7 @@ public class whatIsLove extends Robot4592 {
 
             telemetry.addData("lift", liftArm.getCurrentPosition());
             telemetry.addData("extend up", extendUp.getCurrentPosition());
-            telemetry.addData("extend out", flipOut.getPosition());
+            telemetry.addData("extend out", flipOut.getCurrentPosition());
             telemetry.addData("flip out", extendOut.getCurrentPosition());
             telemetry.addData("flip up", flipUp.getPosition());
 

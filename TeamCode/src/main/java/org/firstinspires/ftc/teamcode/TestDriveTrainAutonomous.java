@@ -50,7 +50,7 @@ public class TestDriveTrainAutonomous extends Robot4592 {
                 rightFront.getCurrentPosition(),
                 leftRear.getCurrentPosition(),
                 rightRear.getCurrentPosition());
-        telemetry.addData("Flip Out Position", flipOut.getPosition());
+        telemetry.addData("Flip Out Position", flipOut.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)

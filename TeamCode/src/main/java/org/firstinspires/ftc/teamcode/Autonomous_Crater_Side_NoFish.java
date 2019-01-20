@@ -51,7 +51,7 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
     static final int        LEFT_M_TO_WALL          = 65; //THIS IS GOOD
     static final int        CENTER_TO_WALL          = CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
     static final int        RIGHT_TO_WALL           = RIGHT_M_TO_CENTER_M + CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
-    static final int        WALL_TO_HOME            = 75; //THIS IS GOOD
+    static final int        WALL_TO_HOME            = 80; //THIS IS GOOD
     static final int        HOME_TO_CRATER          = 120; //THIS IS GOOD
 
 
@@ -70,7 +70,8 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
 
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.addData("lift Arm [position", liftArm.getCurrentPosition());
-        telemetry.addData("Flip Out Position", flipOut.getPosition());
+        telemetry.addData("Flip Out Position", flipOut.getTargetPosition());
+
         telemetry.update();
         //flip_out.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //flip_out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -94,7 +95,7 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
         }
 
         //Drop Robot from the Lander
-        dropLift(-3000, 0.6);
+        dropLift(-3200, 0.6);
         sleep(3000);
         int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
         liftArm.setPower(0);
@@ -313,8 +314,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                    //dropLift(0,0.6);
 
 
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
@@ -353,8 +355,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                    //dropLift(0,0.6);
 
                                 } else {
                                     telemetry.addData("Gold Mineral Position", "Center");
@@ -390,8 +393,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                   // dropLift(0,0.6);
                                 }
                             } else {
                                 if(goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
@@ -428,8 +432,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                    //dropLift(0,0.6);
 
                                 } else if(silverMineral1X > goldMineralX) {
                                     telemetry.addData("Gold Mineral Position", "Left");
@@ -465,8 +470,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                   // dropLift(0,0.6);
                                 }
                             }
                         }
@@ -506,8 +512,9 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
         extendUp.setPower(0.4);
 
         driveForward(0.9, HOME_TO_CRATER);
-        flipOut.setPosition(0.85);
-        dropLift(0,0.6);
+        flipOut.setTargetPosition(400);
+        flipOut.setPower(0.4);
+       // dropLift(0,0.6);
     }
 
     /**

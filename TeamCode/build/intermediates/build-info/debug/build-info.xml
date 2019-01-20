@@ -7,40 +7,31 @@
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.2.1"
-    timestamp="1547929916156"
+    timestamp="1547939081481"
     token="-519517782184843066"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="609" />
+        duration="82" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="48" />
+        duration="51" />
     <task
         name="verifier"
-        duration="23" />
+        duration="3" />
 
     <artifact
-        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
+        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
         type="SPLIT" />
-    <artifact
-        location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1547928019320"
+        timestamp="1547936733912"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-            type="SPLIT_MAIN" />
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
@@ -63,6 +54,9 @@
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
         <artifact
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            type="SPLIT" />
+        <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
         <artifact
@@ -71,27 +65,35 @@
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
+        <artifact
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547929480507"
+        timestamp="1547936942989"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
-            type="SPLIT" />
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1547929916156"
+        timestamp="1547937736742"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1547939081481"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
-            type="SPLIT_MAIN" />
+            location="/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

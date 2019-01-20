@@ -49,7 +49,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
     static final int        RIGHT_M_TO_CENTER_M     = 45; //Check this
     static final int        CENTER_M_TO_LEFT_M      = 18; // check this
     static final int        LEFT_M_TO_WALL          = 65; //THIS IS GOOD
-    static final int        WALL_TO_HOME            = 85; //THIS IS GOOD
+    static final int        WALL_TO_HOME            = 90; //THIS IS GOOD
     static final int        HOME_TO_CRATER          = 115; //THIS IS GOOD
 
 
@@ -68,7 +68,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.addData("lift Arm [position", liftArm.getCurrentPosition());
-        telemetry.addData("Flip Out Position", flipOut.getPosition());
+        telemetry.addData("Flip Out Position", flipOut.getCurrentPosition());
         telemetry.update();
         //flip_out.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //flip_out.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -92,7 +92,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
         }
 
         //Drop Robot from the Lander
-        dropLift(-3000, 0.6);
+        dropLift(-3200, 0.6);
         sleep(3000);
         int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
         liftArm.setPower(0);
@@ -292,7 +292,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     turnRight(0.75, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeRight(0.75,STRAFE_TO_WALL); //Strafe to wall
+                                    strafeRight(0.6,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.9, WALL_TO_HOME); //Drive to Home Depot
 
@@ -307,9 +307,10 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(1, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
 
-                                    dropLift(0,0.6);
+                                   // dropLift(0,0.6);
 
 
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
@@ -334,7 +335,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     turnRight(0.75, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeRight(0.75,STRAFE_TO_WALL); //Strafe to wall
+                                    strafeRight(0.6,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.9, WALL_TO_HOME); //Drive to Home Depot
 
@@ -349,9 +350,9 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(1, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
+                                    flipOut.setTargetPosition(400);
 
-                                    dropLift(0,0.6);
+                                   // dropLift(0,0.6);
 
 
                                 } else {
@@ -375,7 +376,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     turnRight(0.75, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeRight(0.75,STRAFE_TO_WALL); //Strafe to wall
+                                    strafeRight(0.6,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.9, WALL_TO_HOME); //Drive to Home Depot
 
@@ -390,9 +391,9 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(1, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                    //dropLift(0,0.6);
 
 
                                 }
@@ -417,7 +418,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     turnRight(0.75, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeRight(0.75,STRAFE_TO_WALL); //Strafe to wall
+                                    strafeRight(0.6,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.9, WALL_TO_HOME); //Drive to Home Depot
 
@@ -432,9 +433,10 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(1, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
 
-                                    dropLift(0,0.6);
+                                   // dropLift(0,0.6);
 
 
                                 } else if(silverMineral1X > goldMineralX) {
@@ -457,7 +459,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     turnRight(0.75, TURN_ANGLE); //Turn Parallel to Wall
 
-                                    strafeRight(0.75,STRAFE_TO_WALL); //Strafe to wall
+                                    strafeRight(0.6,STRAFE_TO_WALL); //Strafe to wall
 
                                     driveReverse(0.9, WALL_TO_HOME); //Drive to Home Depot
 
@@ -472,9 +474,9 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
                                     extendUp.setPower(0.4);
 
                                     driveForward(1, HOME_TO_CRATER);
-                                    flipOut.setPosition(0.85);
-
-                                    dropLift(0,0.6);
+                                    flipOut.setTargetPosition(400);
+                                    flipOut.setPower(0.4);
+                                   // dropLift(0,0.6);
 
 
                                 }
@@ -521,7 +523,8 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
         extendUp.setPower(0.4);
 
         driveForward(0.9, HOME_TO_CRATER);
-        flipOut.setPosition(0.85);
+        flipOut.setTargetPosition(400);
+        flipOut.setPower(0.4);
     }
 
     /**

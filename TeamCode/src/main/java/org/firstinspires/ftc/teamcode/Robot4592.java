@@ -12,8 +12,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.SensorREV2mDistanc
 
 public abstract class Robot4592 extends LinearOpMode {
 
-    public DcMotor leftFront, rightFront, leftRear, rightRear, extendUp, extendOut, liftArm;
-    public Servo flipUp, flipOut;
+    public DcMotor leftFront, rightFront, leftRear, rightRear, extendUp, extendOut, liftArm, flipOut;
+    public Servo flipUp;
     public CRServo Intake;
     public int liftArmHomePosition = 0;
     public int liftArmTargetPosition = -3100;
@@ -57,9 +57,13 @@ public abstract class Robot4592 extends LinearOpMode {
         extendUp = hardwareMap.dcMotor.get("extendUp");
         extendOut = hardwareMap.dcMotor.get("extendOut");
 
-        flipOut = hardwareMap.servo.get("flipOut");
+        //flipOut = hardwareMap.servo.get("flipOut");
         //flipOut.setPosition(0);
         flipUp = hardwareMap.servo.get("flipUp");
+
+        flipOut = hardwareMap.dcMotor.get("flipOut");
+        flipOut.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        flipOut.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         extendUp.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extendOut.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -118,7 +122,7 @@ public abstract class Robot4592 extends LinearOpMode {
         flipUp = hardwareMap.servo.get("flipUp");
 
 
-        flipOut = hardwareMap.servo.get("flipOut");
+        flipOut = hardwareMap.dcMotor.get("flipOut");
 
 
         // Extend Out - This is not used in Autonomous

@@ -29,7 +29,7 @@ public class ArcadeDriveTest extends Robot4592 {
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        final double originalFlipPos = flipOut.getPosition();
+        final double originalFlipPos = flipOut.getCurrentPosition();
 
 
         while (opModeIsActive()) {
@@ -117,7 +117,7 @@ public class ArcadeDriveTest extends Robot4592 {
             telemetry.addData("extension position", extendOut.getCurrentPosition());
             telemetry.addData("extend up", extendUp.getCurrentPosition());
             telemetry.addData("flipup", flipUp.getPosition());
-            telemetry.addData("flip out", flipOut.getPosition());
+            telemetry.addData("flip out", flipOut.getCurrentPosition());
             /*
             if (isGold) {
                 telemetry.addLine("IT WORKS BABYŸŸŸŸŸŸ;;;;;;;;;;;;YY");

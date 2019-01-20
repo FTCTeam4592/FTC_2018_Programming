@@ -13,7 +13,7 @@
             <NeveRest40Gearmotor name="extendUp" port="1" />
             <NeveRest20Gearmotor name="extendOut" port="3" />
             <ContinuousRotationServo name="Intake" port="1" />
-            <Servo name="flipOut" port="2" />
+            <NeveRest60Gearmotor name="flipOut" port="2" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>

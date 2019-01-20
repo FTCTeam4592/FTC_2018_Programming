@@ -18,7 +18,7 @@ public class Game_TeleOP extends Robot4592 {
             // Run TeleOp Initialization
             tele();
 
-            liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+           // liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             //flipOut.setPosition(0);
 
@@ -69,15 +69,15 @@ public class Game_TeleOP extends Robot4592 {
                 int extend_up_top = 1000;
 
                 // Gamepad B toggles the Lift Arm Position from bottom (0) to the top (-3100)
-                if (gamepad2.b) {
-                    if (liftArm.getCurrentPosition() >= -1000) {
-                        liftArm.setTargetPosition(liftArmTargetPosition);
-                        liftArm.setPower(0.5);
-                    } else if (liftArm.getCurrentPosition() <= -1000) {
-                        liftArm.setTargetPosition(liftArmHomePosition);
-                        liftArm.setPower(1.0);
+                if (gamepad2.b && liftArm.getCurrentPosition()<200) {
+                        liftArm.setTargetPosition(3000);
+                        liftArm.setPower(1);
                     }
-                }
+                    if(gamepad2.b && liftArm.getCurrentPosition()>200){
+                        liftArm.setTargetPosition(0);
+                        liftArm.setPower(0.5);
+
+                    }
 
                 if (gamepad2.x && (extendUp.getCurrentPosition() <= 550)) {
                     extendUp.setTargetPosition(7750);
@@ -103,10 +103,11 @@ public class Game_TeleOP extends Robot4592 {
 
                 telemetry.addData("test", flipOut.getDirection());
                 //flipOut.setPosition(0);
-                telemetry.addData("current pos", flipOut.getPosition());
+                telemetry.addData("current pos", flipOut.getCurrentPosition());
                 //
                 //flipOut.setDirection(Servo.Direction.REVERSE);
 
+                /*
                 if (gamepad2.dpad_down && (flipOut.getPosition() < 0.2)) {
                     // Flip out to the mat
 
@@ -125,6 +126,25 @@ public class Game_TeleOP extends Robot4592 {
                 if (gamepad2.dpad_left){
                     telemetry.addData("current pos", flipOut.getPosition());
                     flipOut.setPosition(0.47);
+                }
+                */
+
+                if(gamepad2.dpad_down){
+                    flipOut.setTargetPosition(525);
+                    flipOut.setPower(0.4);
+                }
+                if(flipOut.getCurrentPosition()<=15){
+                    flipOut.setPower(0);
+                }
+                if(gamepad2.dpad_up){
+
+                    flipOut.setTargetPosition(0);
+                    flipOut.setPower(0.4);
+
+                }
+                if(gamepad2.dpad_left){
+                    flipOut.setTargetPosition(150);
+                    flipOut.setPower(0.4);
                 }
 
                 if (gamepad2.y && (flipUp.getPosition() < 0.55) && (extendUp.getCurrentPosition()>550)) {
@@ -153,7 +173,7 @@ public class Game_TeleOP extends Robot4592 {
                 telemetry.addData("flip up", flipUp.getPosition());
                 telemetry.addData("rightfrontpow", rightFront.getPower());
                 telemetry.addData("rightpow", rightRear.getPower());
-                telemetry.addData("current", flipOut.getPosition());
+                telemetry.addData("current", flipOut.getCurrentPosition());
                 telemetry.addData("intake", Intake.getPower());
                 telemetry.update();
 
