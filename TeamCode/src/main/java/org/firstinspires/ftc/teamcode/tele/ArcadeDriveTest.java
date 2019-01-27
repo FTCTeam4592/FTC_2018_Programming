@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.RobotBase;
 
 
 @TeleOp(name = "Arcade Drive Test")
-
+@Disabled
 public class ArcadeDriveTest extends Robot4592 {
 
     @Override

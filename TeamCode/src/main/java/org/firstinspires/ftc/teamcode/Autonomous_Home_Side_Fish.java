@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 @Autonomous(name="AUTONOMOUS_2019_07_Home Side_Fish", group="Autonomous Tournament Code")
-//@Disabled
+@Disabled
 
 
 public class Autonomous_Home_Side_Fish extends Robot4592 {
@@ -31,7 +32,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
     private String gp = "";
 
-    private DistanceSensor rDS;
+    private DistanceSensor rDS = hardwareMap.get(DistanceSensor.class,"rearDistanceSensor");
     private static final String VUFORIA_KEY = "AR28rTb/////AAAAGdmyxbWoaEUfpgbw+HH9dAR6pd2GE0zLPpsObm9c3iyHvFxLGIrvMEkriYpEMFXybIOF1ng9sKMrJr1He8aXsUQ+7zxItkmGs69z3vTyLgRRD0eUrIJXViYt+tk6IzPYE+4Z9v5hWKteebG3TfzVmT/H/kg6vMLzQblDYNcz4JJZYrCq2axfHBhrDp6ljJQv0esY5DacKVrFLn1H6Jkaxe0vuZFsOveYpTzRdY4v4UuXqEwUxz+NdM/++RZncWkbftEpcLaf1tMFkTZBCOdQ5Tx+HXoT1bpepy1hHF1E6+cwxiUxZAx1ZxbsH5IJ+TfVtk2GjGD1R9CqSqvDE+8fWY12BOZP3PTSdHLaVgCmw/hq";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
@@ -58,8 +59,6 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
     @Override
     public void runOpMode() {
-
-        rDS = hardwareMap.get(DistanceSensor.class,"rearDistanceSensor");
 
 
         auto();
@@ -92,13 +91,13 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
         }
 
         //Drop Robot from the Lander
-        dropLift(-3200, 0.6);
+        dropLift(-3300, 0.6);
         sleep(3000);
         int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
         liftArm.setPower(0);
 
         //To release the hook from the Lander move forward a tad
-        driveForward(0.5, 13);
+        driveForward(0.5, 12);
         sleep(1000);
 
 
@@ -139,7 +138,6 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
         //encoderDrive(DRIVE_SPEED, 12, 12, -12, -12, 1.0);//Strafe Left
         //encoderDrive(DRIVE_SPEED, -2, 2, -2, 2, 1.0);//Go Forward
         // Ensure that the opmode is still active
-
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
@@ -194,33 +192,6 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
             rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
-        }
-    }
-    private void strafeLeft(double speed, double distance){
-        encoderDrive(speed, -distance, distance, -distance, distance, 2.5);
-    }
-    private void strafeRight(double speed, double distance){
-        encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
-    }
-    private void driveForward(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 4.0);
-    }
-    private void driveReverse(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 4.0);
-    }
-    private void turnLeft(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, distance, distance, 4.0); //45 is 90 degrees
-    }
-    private void turnRight(double speed, double distance){
-        encoderDrive(speed, distance, distance, -distance, -distance, 4.0);
-    }
-    private void driveWithSensor(double speed, double desiredDistance) {
-        while (rDS.getDistance(DistanceUnit.INCH) > desiredDistance + 1) {
-            leftFront.setPower(speed);
-            rightFront.setPower(speed);
-            leftRear.setPower(speed);
-            rightRear.setPower(speed);
-
         }
     }
 
@@ -361,7 +332,7 @@ public class Autonomous_Home_Side_Fish extends Robot4592 {
 
                                     strafeLeft(0.75,40);
                                     //sleep(4000); //allow the thing to read the gold position
-                                    driveForward(0.75, -15);
+                                    driveForward(0.75, -20);
                                     telemetry.addData("going to", gp);
                                     telemetry.update();
                                     tfod.deactivate();

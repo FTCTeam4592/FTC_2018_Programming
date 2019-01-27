@@ -14,7 +14,7 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 
 
 @TeleOp(name = "DriveTest1")
-
+@Disabled
 public class DriveTest1 extends RobotBase {
 
 

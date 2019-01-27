@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 @Autonomous(name="DriveT rain Test", group="Test")
-//@Disabled
+@Disabled
 
 
 public class TestDriveTrainAutonomous extends Robot4592 {
@@ -147,23 +148,6 @@ public class TestDriveTrainAutonomous extends Robot4592 {
             //  sleep(250);   // optional pause after each move
         }
     }
-    private void strafeLeft(double speed, double distance){
-        encoderDrive(speed, -distance, distance, -distance, distance, 2.5);
-    }
-    private void strafeRight(double speed, double distance){
-        encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
-    }
-    private void driveForward(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 3.0);
-    }
-    private void driveReverse(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 3.0);
-    }
-    private void turnLeft(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, distance, distance, 3.0); //45 is 90 degrees
-    }
-    private void turnRight(double speed, double distance){
-        encoderDrive(speed, distance, distance, -distance, -distance, 3.0);
-    }
+
 }
 

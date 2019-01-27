@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.TensorFlow;
 import java.util.List;
 
 @Autonomous(name = "GREENBEANMONEYMACHINE")
+@Disabled
 public class PrelimAutoCraterSide extends RobotBase {
 
     public TFObjectDetector tfod;

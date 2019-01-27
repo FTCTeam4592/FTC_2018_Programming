@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,8 +17,7 @@ import java.util.List;
 
 
 @Autonomous(name="AUTONOMOUS_2019_05_Crater Side_Fish", group="Autonomous Tournament Code")
-//@Disabled
-
+@Disabled
 
 public class Autonomous_Crater_Side_Fish extends Robot4592 {
 
@@ -92,13 +92,13 @@ public class Autonomous_Crater_Side_Fish extends Robot4592 {
         }
 
         //Drop Robot from the Lander
-        dropLift(-3200, 0.6);
+        dropLift(-3300, 0.6);
         sleep(3000);
         int liftArmCurrentPosition = liftArm.getCurrentPosition() ;
         liftArm.setPower(0);
 
         //To release the hook from the Lander move forward a tad
-        driveForward(0.5, 13);
+        driveForward(0.5, 12);
         sleep(1000);
 
 
@@ -198,33 +198,6 @@ public class Autonomous_Crater_Side_Fish extends Robot4592 {
             //  sleep(250);   // optional pause after each move
         }
     }
-    private void strafeLeft(double speed, double distance){
-        encoderDrive(speed, -distance, distance, -distance, distance, 2.5);
-    }
-    private void strafeRight(double speed, double distance){
-        encoderDrive(speed, distance, -distance, distance, -distance, 3.0);
-    }
-    private void driveForward(double speed, double distance){
-        encoderDrive(speed, distance, distance, distance, distance, 3.0);
-    }
-    private void driveReverse(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, -distance, -distance, 4.0);
-    }
-    private void turnLeft(double speed, double distance){
-        encoderDrive(speed, -distance, -distance, distance, distance, 3.0); //45 is 90 degrees
-    }
-    private void turnRight(double speed, double distance){
-        encoderDrive(speed, distance, distance, -distance, -distance, 3.0);
-    }
-    private void driveWithSensor(double speed, double desiredDistance) {
-        while (rDS.getDistance(DistanceUnit.INCH) > desiredDistance + 1) {
-            leftFront.setPower(speed);
-            rightFront.setPower(speed);
-            leftRear.setPower(speed);
-            rightRear.setPower(speed);
-
-        }
-    }
 
     public void action() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -272,204 +245,31 @@ public class Autonomous_Crater_Side_Fish extends Robot4592 {
                             if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                                 if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
 
-                                    // GOLD Mineral is in the LEFT Position (Closest to the Driver station)
-                                    telemetry.addData("Gold Mineral Position", "Left");
-
-                                    gp = "left";
-
-                                    strafeLeft(DRIVE_SPEED,40); //Strafe towards minerals and away from lander
-
-                                    driveReverse(DRIVE_SPEED, DISTANCE_TO_LEFT_M); // Drive to The Gold Mineral
-
-                                    telemetry.addData("going to", gp);
-                                    telemetry.update();
+                                    sampleLeft();
                                     tfod.deactivate();
-
-                                    pushGold();
-
-                                    //doRestofAutonomous();
-                                    //OR ALL THIS
-                                    driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
-
-                                    turnLeft(DRIVE_SPEED, 22.5); //Turn Parallel to Wall
-
-                                    strafeLeft(0.7,10); //Strafe to wall
-
-                                    //driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
-
-                                    driveWithSensor(0.5,24);
-
-
-                                    flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(1500);
-                                    extendUp.setPower(0.4);
-                                    sleep(2000);
-                                    flipUp.setPosition(.92);
-                                    sleep(2000);
-                                    flipUp.setPosition(.4);
-                                    extendUp.setTargetPosition(10);
-                                    extendUp.setPower(0.4);
-
-                                    driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setTargetPosition(400);
-                                    flipOut.setPower(0.4);
-                                    //dropLift(0,0.6);
+                                    autoCrater();
 
 
                                 } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                                    telemetry.addData("Gold Mineral Position", "Right");
-                                    gp = "right";
-
-                                    strafeLeft(DRIVE_SPEED,40);
-
-                                    driveForward(DRIVE_SPEED, 20);
-                                    telemetry.addData("going to", gp);
-                                    telemetry.update();
+                                    sampleRight();
                                     tfod.deactivate();
-
-                                    pushGold();
-
-                                    driveReverse(DRIVE_SPEED, RIGHT_TO_WALL);
-                                    //driveReverse(DRIVE_SPEED, CENTER_M_TO_LEFT_M);
-                                    //doRestofAutonomous();
-                                    //OR ALL THIS
-                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
-
-                                    turnLeft(DRIVE_SPEED, 22.5); //Turn Parallel to Wall
-
-                                    strafeLeft(0.7,10); //Strafe to wall
-
-                                    driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
-
-                                    flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(1500);
-                                    extendUp.setPower(0.4);
-                                    sleep(2000);
-                                    flipUp.setPosition(.92);
-                                    sleep(2000);
-                                    flipUp.setPosition(.4);
-                                    extendUp.setTargetPosition(10);
-                                    extendUp.setPower(0.4);
-
-                                    driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setTargetPosition(400);
-                                    flipOut.setPower(0.4);
-                                    //dropLift(0,0.6);
+                                    autoCrater();
 
                                 } else {
-                                    telemetry.addData("Gold Mineral Position", "Center");
-                                    gp = "center";
-
-                                    strafeLeft(DRIVE_SPEED,40);
-                                    //sleep(4000); //allow the thing to read the gold position
-                                    driveForward(DRIVE_SPEED, -15);
-                                    telemetry.addData("going to", gp);
-                                    telemetry.update();
+                                    sampleCenter();
                                     tfod.deactivate();
-
-                                    pushGold();
-
-                                    driveReverse(DRIVE_SPEED, CENTER_TO_WALL);
-                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
-                                    //doRestofAutonomous();
-                                    //OR ALL THIS
-                                    turnLeft(DRIVE_SPEED, 22.5); //Turn Parallel to Wall
-
-                                    strafeLeft(0.7,10); //Strafe to wall
-
-                                    driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
-
-                                    flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(1500);
-                                    extendUp.setPower(0.4);
-                                    sleep(2000);
-                                    flipUp.setPosition(.92);
-                                    sleep(2000);
-                                    flipUp.setPosition(.4);
-                                    extendUp.setTargetPosition(10);
-                                    extendUp.setPower(0.4);
-
-                                    driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setTargetPosition(400);
-                                    flipOut.setPower(0.4);
-                                   // dropLift(0,0.6);
+                                    autoCrater();
                                 }
                             } else {
                                 if(goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                                    telemetry.addData("Gold Mineral Position", "Center");
-                                    gp = "center";
-                                    strafeLeft(DRIVE_SPEED,40);
-                                    //sleep(4000); //allow the thing to read the gold position
-                                    driveForward(DRIVE_SPEED, -15);
-                                    telemetry.addData("going to", gp);
-                                    telemetry.update();
+                                    sampleCenter();
                                     tfod.deactivate();
-
-                                    pushGold();
-
-                                    driveReverse(DRIVE_SPEED, CENTER_TO_WALL);
-                                    //doRestofAutonomous();
-                                    //OR ALL THIS
-                                    //driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
-
-                                    turnLeft(DRIVE_SPEED, 22.5); //Turn Parallel to Wall
-
-                                    strafeLeft(0.7,10); //Strafe to wall
-
-                                    driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
-
-                                    flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(1500);
-                                    extendUp.setPower(0.4);
-                                    sleep(2000);
-                                    flipUp.setPosition(.92);
-                                    sleep(2000);
-                                    flipUp.setPosition(.4);
-                                    extendUp.setTargetPosition(10);
-                                    extendUp.setPower(0.4);
-
-                                    driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setTargetPosition(400);
-                                    flipOut.setPower(0.4);
-                                    //dropLift(0,0.6);
+                                    autoCrater();
 
                                 } else if(silverMineral1X > goldMineralX) {
-                                    telemetry.addData("Gold Mineral Position", "Left");
-                                    gp = "left";
-                                    strafeLeft(DRIVE_SPEED,40);
-                                    //sleep(4000); //allow the thing to read the gold position
-
-                                    driveForward(DRIVE_SPEED, -45);
-                                    telemetry.addData("going to", gp);
-                                    telemetry.update();
+                                    sampleLeft();
                                     tfod.deactivate();
-
-                                    pushGold();
-
-                                    //doRestofAutonomous();
-                                    //OR ALL THIS
-                                    driveReverse(DRIVE_SPEED, LEFT_M_TO_WALL); //Drive Forward to the Wall
-
-                                    turnLeft(DRIVE_SPEED, 22.5); //Turn Parallel to Wall
-
-                                    strafeLeft(0.7,10); //Strafe to wall
-
-                                    driveReverse(0.75, WALL_TO_HOME); //Drive to Home Depot
-
-                                    flipUp.setPosition(0.49);
-                                    extendUp.setTargetPosition(1500);
-                                    extendUp.setPower(0.4);
-                                    sleep(2000);
-                                    flipUp.setPosition(.92);
-                                    sleep(2000);
-                                    flipUp.setPosition(.4);
-                                    extendUp.setTargetPosition(10);
-                                    extendUp.setPower(0.4);
-
-                                    driveForward(0.9, HOME_TO_CRATER);
-                                    flipOut.setTargetPosition(400);
-                                    flipOut.setPower(0.4);
-                                    //dropLift(0,0.6);
+                                    autoCrater();
                                 }
                             }
                         }

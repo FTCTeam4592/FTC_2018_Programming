@@ -69,13 +69,13 @@ public class Game_TeleOP extends Robot4592 {
                 int extend_up_top = 1000;
 
                 // Gamepad B toggles the Lift Arm Position from bottom (0) to the top (-3100)
-                if (gamepad2.b && liftArm.getCurrentPosition()<200) {
-                        liftArm.setTargetPosition(3000);
-                        liftArm.setPower(1);
-                    }
-                    if(gamepad2.b && liftArm.getCurrentPosition()>200){
-                        liftArm.setTargetPosition(0);
+                if (gamepad2.b && liftArm.getCurrentPosition()>-200) {
+                        liftArm.setTargetPosition(-3300);
                         liftArm.setPower(0.5);
+                    }
+                    if(gamepad2.b && liftArm.getCurrentPosition()<-200){
+                        liftArm.setTargetPosition(0);
+                        liftArm.setPower(1);
 
                     }
 
@@ -87,6 +87,13 @@ public class Game_TeleOP extends Robot4592 {
                     extendUp.setTargetPosition(0);
                     extendUp.setPower(-1);
                     //extendUp.setPower(0);
+                }
+
+                if(gamepad1.right_bumper){
+                    strafeRight(0.75, 15);
+                }
+                if(gamepad1.left_bumper){
+                    driveReverse(0.75, 10);
                 }
 
                 double ext;
@@ -130,7 +137,7 @@ public class Game_TeleOP extends Robot4592 {
                 */
 
                 if(gamepad2.dpad_down){
-                    flipOut.setTargetPosition(525);
+                    flipOut.setTargetPosition(555);
                     flipOut.setPower(0.4);
                 }
                 if(flipOut.getCurrentPosition()<=15){
