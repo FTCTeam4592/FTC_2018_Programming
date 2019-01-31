@@ -100,7 +100,7 @@ public class Autonomous_Crater_Side_NoFish extends Robot4592 {
 
         //To release the hook from the Lander move forward a tad
         driveForward(0.5, 10);
-        sleep(1000);
+        //sleep(1000);
 
 
 

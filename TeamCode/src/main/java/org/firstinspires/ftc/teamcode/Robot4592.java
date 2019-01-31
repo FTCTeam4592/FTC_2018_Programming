@@ -19,7 +19,6 @@ public abstract class Robot4592 extends LinearOpMode {
     public CRServo Intake;
     public int liftArmHomePosition = 0;
     public int liftArmTargetPosition = -3100;
-    public DistanceSensor sensorDis;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120.0 ;    // eg: AndyMark NeverRest40 Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = .5 ;     // This is < 1.0 if geared UP
@@ -46,7 +45,9 @@ public abstract class Robot4592 extends LinearOpMode {
     public ElapsedTime runtime = new ElapsedTime();
 
 
-    //private Elapsedtime period = new ElapsedTime();
+    public DistanceSensor rDS;
+    public DistanceSensor fDS;
+//private Elapsedtime period = new ElapsedTime();
 
     protected void tele() {
 
@@ -159,6 +160,8 @@ public abstract class Robot4592 extends LinearOpMode {
         // Intake - This is not used in Autonomous
         Intake = hardwareMap.crservo.get("Intake");
 
+        rDS = hardwareMap.get(DistanceSensor.class, "rearDistanceSensor");
+        fDS = hardwareMap.get(DistanceSensor.class, "frontDistanceSensor");
 
     }
 
@@ -282,6 +285,11 @@ public abstract class Robot4592 extends LinearOpMode {
         strafeLeft(0.7,STRAFE_TO_WALLC); //Strafe to wall
 
         driveReverse(0.75, WALL_TO_HOMEC); //Drive to Home Depot
+        //distanceSensorDrive(-0.5, 24);
+        telemetry.addData("distanceFrom", rDS.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+        sleep(5000);
+
 
         flipUp.setPosition(0.49);
         extendUp.setTargetPosition(1500); //changed from 2500
@@ -414,7 +422,6 @@ public abstract class Robot4592 extends LinearOpMode {
     public void turnRight(double speed, double distance){
         encoderDrive(speed, distance, distance, -distance, -distance, 3.0);
     }
-
 
     private void pushGold() {
         strafeLeft(0.5,MOVE_MINERAL);  //Shift the mineral

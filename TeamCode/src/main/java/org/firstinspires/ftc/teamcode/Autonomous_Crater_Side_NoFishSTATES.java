@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -101,9 +102,14 @@ public class Autonomous_Crater_Side_NoFishSTATES extends Robot4592 {
             tfod.activate();
         }
 
+
+
+
         // Wait for the game to start (driver presses PLAY)
         while(!opModeIsActive() && !isStopRequested()){
             telemetry.addData("status","waiting for start command...");
+            //telemetry.addData("rear", rDS.getDistance(DistanceUnit.INCH));
+            //telemetry.addData("front", fDS.getDistance(DistanceUnit.INCH));
             telemetry.update();
         }
 
@@ -116,7 +122,7 @@ public class Autonomous_Crater_Side_NoFishSTATES extends Robot4592 {
 
         //To release the hook from the Lander move forward a tad
         driveForward(0.5, 10);
-        sleep(1000);
+        //sleep(1000);
 
 
 
