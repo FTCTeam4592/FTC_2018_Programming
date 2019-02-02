@@ -11,12 +11,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.vision.AKObjectDetection;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import java.util.List;
 
 
 @Autonomous(name="AUTONOMOUS_2019_07_Home Side_NoFish", group="Autonomous Tournament Code")
-//@Disabled
+@Disabled
 
 
 public class Autonomous_Home_Side_NoFish extends Robot4592 {

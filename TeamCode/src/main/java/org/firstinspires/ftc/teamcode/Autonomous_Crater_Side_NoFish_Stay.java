@@ -10,12 +10,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.vision.AKObjectDetection;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import java.util.List;
 
 
 @Autonomous(name="AUTONOMOUS_Crater Side_NoFish_STAY", group="Autonomous Tournament Code")
-//@Disabled
+@Disabled
 
 
 public class Autonomous_Crater_Side_NoFish_Stay extends Robot4592 {

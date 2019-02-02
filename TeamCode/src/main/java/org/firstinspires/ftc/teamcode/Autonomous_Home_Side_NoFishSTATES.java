@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 
-@Autonomous(name="AUTONOMOUS_STATES_Home Side_NoFish", group="Autonomous Tournament Code")
+@Autonomous(name="STATES HOME", group="Autonomous Tournament Code")
 //@Disabled
 
 
@@ -121,7 +121,7 @@ public class Autonomous_Home_Side_NoFishSTATES extends Robot4592 {
 
         //To release the hook from the Lander move forward a tad
         driveForward(0.5, 10);
-        //sleep(1000);
+        sleep(1000);
 
 
 

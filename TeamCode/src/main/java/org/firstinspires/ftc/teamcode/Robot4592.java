@@ -32,9 +32,9 @@ public abstract class Robot4592 extends LinearOpMode {
     static final int        RIGHT_M_TO_CENTER_M     = 45; //Check this
     static final int        STRAFE_TO_WALLH         = 10;
     static final int        STRAFE_TO_WALLC         = 14;
-    static final int        CENTER_M_TO_LEFT_M      = 18; // check this
+    static final int        CENTER_M_TO_LEFT_M      = 20; // check this
     static final int        LEFT_M_TO_WALL          = 60; //THIS IS GOOD
-    static final int        CENTER_TO_WALL          = CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
+    static final int        CENTER_TO_WALL          = CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL+5;
     static final int        RIGHT_TO_WALL           = RIGHT_M_TO_CENTER_M + CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL;
     static final int        WALL_TO_HOMEH           = 95; //THIS IS GOOD
     static final int        WALL_TO_HOMEC           = 80;
@@ -286,9 +286,9 @@ public abstract class Robot4592 extends LinearOpMode {
 
         driveReverse(0.75, WALL_TO_HOMEC); //Drive to Home Depot
         //distanceSensorDrive(-0.5, 24);
-        telemetry.addData("distanceFrom", rDS.getDistance(DistanceUnit.INCH));
-        telemetry.update();
-        sleep(5000);
+        //telemetry.addData("distanceFrom", rDS.getDistance(DistanceUnit.INCH));
+        //telemetry.update();
+        //sleep(5000);
 
 
         flipUp.setPosition(0.49);

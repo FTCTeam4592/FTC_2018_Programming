@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -18,7 +19,7 @@ import java.util.List;
 
 
 @Autonomous(name="AUTONOMOUS_2019_05_Crater Side_NoFish", group="Autonomous Tournament Code")
-//@Disabled
+@Disabled
 
 
 public class Autonomous_Crater_Side_NoFish extends Robot4592 {

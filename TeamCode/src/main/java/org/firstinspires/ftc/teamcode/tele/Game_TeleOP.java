@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tele;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,8 +11,8 @@ import org.firstinspires.ftc.teamcode.Robot4592;
 
 
 @TeleOp(name = "Game TeleOp", group="TeleOp Tournament")
+@Disabled
 public class Game_TeleOP extends Robot4592 {
-
         @Override
         public void runOpMode() {
 
@@ -154,11 +155,20 @@ public class Game_TeleOP extends Robot4592 {
                     flipOut.setPower(0.4);
                 }
 
-                if (gamepad2.y && (flipUp.getPosition() < 0.55) && (extendUp.getCurrentPosition()>550)) {
+                boolean changed = false;
+
+                if (gamepad2.y && (flipUp.getPosition() < .5) && (flipUp.getPosition() > 0.48) && (extendUp.getCurrentPosition()>550) && !changed) {
                     flipUp.setPosition(0.92);
-                } else if (gamepad2.y && (flipUp.getPosition() > 0.55)) {
+                    if(flipUp.getPosition()<0.75){
+                        changed = true;
+                    }
+                } else if (gamepad2.y && (flipUp.getPosition() < 0.93) && (flipUp.getPosition() > 0.91) && !changed) {
                     flipUp.setPosition(0.49);
+                    if(flipUp.getPosition()>0.75){
+                        changed = true;
+                    }
                 }
+
 
                 // If GamePad 2 button A is pressed, turn on Intake Motor
                 /*
