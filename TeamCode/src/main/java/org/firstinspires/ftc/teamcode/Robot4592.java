@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREV2mDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -31,7 +32,7 @@ public abstract class Robot4592 extends LinearOpMode {
     static final int        DISTANCE_TO_LEFT_M      = 45;
     static final int        RIGHT_M_TO_CENTER_M     = 45; //Check this
     static final int        STRAFE_TO_WALLH         = 10;
-    static final int        STRAFE_TO_WALLC         = 14;
+    static final int        STRAFE_TO_WALLC         = 16;
     static final int        CENTER_M_TO_LEFT_M      = 20; // check this
     static final int        LEFT_M_TO_WALL          = 60; //THIS IS GOOD
     static final int        CENTER_TO_WALL          = CENTER_M_TO_LEFT_M + LEFT_M_TO_WALL+5;
@@ -45,7 +46,6 @@ public abstract class Robot4592 extends LinearOpMode {
     public ElapsedTime runtime = new ElapsedTime();
 
 
-    public DistanceSensor rDS;
     public DistanceSensor fDS;
 //private Elapsedtime period = new ElapsedTime();
 
@@ -103,6 +103,9 @@ public abstract class Robot4592 extends LinearOpMode {
         liftArm = hardwareMap.dcMotor.get("liftArm");
         liftArm.setDirection(DcMotor.Direction.REVERSE);
         liftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //liftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fDS = hardwareMap.get(DistanceSensor.class, "frontDistanceSensor");
     }
 
     protected void auto() {
@@ -160,7 +163,6 @@ public abstract class Robot4592 extends LinearOpMode {
         // Intake - This is not used in Autonomous
         Intake = hardwareMap.crservo.get("Intake");
 
-        rDS = hardwareMap.get(DistanceSensor.class, "rearDistanceSensor");
         fDS = hardwareMap.get(DistanceSensor.class, "frontDistanceSensor");
 
     }
@@ -428,6 +430,51 @@ public abstract class Robot4592 extends LinearOpMode {
         strafeRight(0.6,MOVE_MINERAL); //Move Back
     }
 
+    public void triggerForward(){
+        double frontRight = Range.clip(gamepad1.right_trigger,-1,1);
+        double rearRight = Range.clip(gamepad1.right_trigger,-1,1);
+        double frontLeft = Range.clip(gamepad1.right_trigger,-1,1);
+        double rearLeft = Range.clip(gamepad1.right_trigger,-1,1);
+
+        frontRight = (float) scaleInput(frontRight);
+        rearRight = (float) scaleInput(rearRight);
+        frontLeft = (float) scaleInput(frontLeft);
+        rearLeft = (float) scaleInput(rearLeft);
+
+        leftFront.setPower(frontRight);
+        leftRear.setPower(rearLeft);
+        rightRear.setPower(rearRight);
+        leftFront.setPower(frontLeft);
+
+
+    }
+
+    public void triggerBackward(){
+        double frontRight = Range.clip(gamepad1.left_trigger,-1,1);
+        double rearRight = Range.clip(gamepad1.left_trigger,-1,1);
+        double frontLeft = Range.clip(gamepad1.left_trigger,-1,1);
+        double rearLeft = Range.clip(gamepad1.left_trigger,-1,1);
+
+        frontRight = (float) scaleInput(frontRight);
+        rearRight = (float) scaleInput(rearRight);
+        frontLeft = (float) scaleInput(frontLeft);
+        rearLeft = (float) scaleInput(rearLeft);
+
+        leftFront.setPower(-frontRight);
+        leftRear.setPower(-rearLeft);
+        rightRear.setPower(-rearRight);
+        leftFront.setPower(-frontLeft);
+    }
+
+
+    public void drive( double lf, double rf, double lr, double rr1){
+
+        leftFront.setPower(lf);
+        rightFront.setPower(rf);
+        leftRear.setPower(lr);
+        rightRear.setPower(rr1);
+
+    }
 
     public double scaleInput(double dVal)  {
         double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

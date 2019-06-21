@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.tele;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 
 import org.firstinspires.ftc.teamcode.Robot4592;
 
@@ -27,8 +29,8 @@ public class States_TeleOP extends Robot4592 {
             while (opModeIsActive()) {
 
 
-                //strafe right
-                double leftFront_Power = Range.clip(-1 * gamepad1.left_stick_x, -1, 1);
+                //strafe
+                double leftFront_Power = Range.clip(gamepad1.left_stick_x, -1, 1);
                 double rightFront_Power = Range.clip(leftFront_Power, -1, 1);
                 double leftRear_Power = Range.clip(-leftFront_Power, -1, 1);
                 double rightRear_Power = Range.clip(-leftFront_Power, -1, 1);
@@ -37,6 +39,10 @@ public class States_TeleOP extends Robot4592 {
                 rightFront_Power = (float) scaleInput(rightFront_Power);
                 leftRear_Power = (float) scaleInput(leftRear_Power);
                 rightRear_Power = (float) scaleInput(rightRear_Power);
+
+                //triggerForward();
+                //triggerBackward();
+
 
                 //drive
                 double frontRight = Range.clip(-gamepad1.right_stick_y, -1, 1);
@@ -49,6 +55,9 @@ public class States_TeleOP extends Robot4592 {
                 frontLeft = (float) scaleInput(frontLeft);
                 rearLeft = (float) scaleInput(rearLeft);
 
+                double distance_extend = fDS.getDistance(DistanceUnit.INCH);
+                telemetry.addData("distance extend", distance_extend);
+
 
                 int current;
 
@@ -60,19 +69,23 @@ public class States_TeleOP extends Robot4592 {
                     //drive
                     drive(-frontLeft, frontRight, -rearLeft, rearRight);
                 }
+
+
+
+
                 int liftArmPosition = 0;
                 //Extend Up
                 int extend_up_position = extendUp.getCurrentPosition();
                 int extend_up_top = 1000;
 
                 // Gamepad B toggles the Lift Arm Position from bottom (0) to the top (-3100)
-                if (gamepad2.b && liftArm.getCurrentPosition()>-200) {
-                        liftArm.setTargetPosition(-3300);
-                        liftArm.setPower(0.5);
-                    }
-                    if(gamepad2.b && liftArm.getCurrentPosition()<-200){
-                        liftArm.setTargetPosition(0);
+                if (gamepad2.b && liftArm.getCurrentPosition()<200) {
+                        liftArm.setTargetPosition(3300);
                         liftArm.setPower(1);
+                    }
+                    if(gamepad2.b && liftArm.getCurrentPosition()>200){
+                        liftArm.setTargetPosition(0);
+                        liftArm.setPower(0.5);
 
                     }
 
@@ -80,24 +93,24 @@ public class States_TeleOP extends Robot4592 {
                     extendUp.setTargetPosition(7750);
                     extendUp.setPower(1);
                     //extendUp.setPower(0);
-                } else if (gamepad2.x && (extendUp.getCurrentPosition() > 550)) {
+                } else if (gamepad2.x && (extendUp.getCurrentPosition() > 550) && (flipUp.getPosition()<0.65)) {
                     extendUp.setTargetPosition(0);
                     extendUp.setPower(-1);
-                    //extendUp.setPower(0);
+                    //flipUp.setPosition(0.49);
                 }
 
                 if(gamepad1.right_bumper){
-                    strafeRight(0.75, 15);
+                    strafeRight(1, 15);
                 }
                 if(gamepad1.left_bumper){
-                    driveReverse(0.75, 10);
+                    driveReverse(1, 10);
                 }
 
                 double ext;
 
-                if (gamepad2.right_bumper) { // && extendOut.getCurrentPosition()<5000  add this
+                if ((Math.abs(gamepad1.left_trigger)>0) && distance_extend < 16.75) { // && extendOut.getCurrentPosition()<5000  add this
                     ext = 1;
-                } else if (gamepad2.left_bumper) { // && extendOut.getCurrentPosition()>5000  add this
+                } else if ((Math.abs(gamepad1.right_trigger)>0) && distance_extend > 2) { // && extendOut.getCurrentPosition()>5000  add this
                     ext = -1;
                 } else {
                     ext = 0;
@@ -133,51 +146,36 @@ public class States_TeleOP extends Robot4592 {
                 }
                 */
 
-                if(gamepad2.dpad_down){
-                    flipOut.setTargetPosition(555);
+                if(gamepad1.dpad_down){
+                    flipOut.setTargetPosition(555);//555
+                    flipOut.setPower(0.4);
+                } else if(gamepad1.dpad_up){
+                    flipOut.setTargetPosition(0);//0
+                    flipOut.setPower(0.4);
+                } else if(gamepad1.dpad_left){
+                    flipOut.setTargetPosition(150);//150
                     flipOut.setPower(0.4);
                 }
+
                 if(flipOut.getCurrentPosition()<=15){
                     flipOut.setPower(0);
                 }
-                if(gamepad2.dpad_up){
 
-                    flipOut.setTargetPosition(0);
-                    flipOut.setPower(0.4);
-
-                }
-                if(gamepad2.dpad_left){
-                    flipOut.setTargetPosition(150);
-                    flipOut.setPower(0.4);
+                if(gamepad1.dpad_up && fDS.getDistance(DistanceUnit.INCH)<2){
+                    flipOut.setTargetPosition(0);//0
+                    flipOut.setPower(0.6);
+                    sleep(250);
+                    driveReverse(0.5, 5);
                 }
 
-
-
-                boolean changed = false;
-
-                if (gamepad2.y && (flipUp.getPosition() < .5) && (flipUp.getPosition() > 0.48) && (extendUp.getCurrentPosition()>550) && !changed) {
+                if (gamepad2.y && (flipUp.getPosition() < .5) && (flipUp.getPosition() > 0.48) && (extendUp.getCurrentPosition()>550)) {
                     flipUp.setPosition(0.92);
-                    if(flipUp.getPosition()<0.75){
-                        changed = true;
-                    }
-                } else if (gamepad2.y && (flipUp.getPosition() < 0.93) && (flipUp.getPosition() > 0.91) && !changed) {
+                    sleep(250);
+                    driveReverse(0.5,5);
+                } else if (gamepad2.y && (flipUp.getPosition() < 0.93) && (flipUp.getPosition() > 0.91)) {
                     flipUp.setPosition(0.49);
-                    if(flipUp.getPosition()>0.75){
-                        changed = true;
-                    }
+                    sleep(100);
                 }
-
-
-
-                // If GamePad 2 button A is pressed, turn on Intake Motor
-                /*
-                if (gamepad2.a) {
-                    Intake.setPower(0.4);
-                    telemetry.addData("intake", Intake.getPower());
-                    telemetry.update();
-
-                }
-                */
 
                 Intake.setPower(-1*((gamepad2.left_stick_y)*0.85));
 
@@ -225,14 +223,7 @@ public class States_TeleOP extends Robot4592 {
 
         }
 
-        private void drive( double lf, double rf, double lr, double rr1){
 
-        leftFront.setPower(lf);
-        rightFront.setPower(rf);
-        leftRear.setPower(lr);
-        rightRear.setPower(rr1);
-
-        }
 
         private void intake(double inP){
             Intake.setPower(inP);

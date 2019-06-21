@@ -138,15 +138,6 @@ public class ArcadeDriveTest extends Robot4592 {
     }
 
 
-    private void drive( double lf, double rf, double lr, double rr1){
-
-        leftFront.setPower(lf);
-        rightFront.setPower(rf);
-        leftRear.setPower(lr);
-        rightRear.setPower(rr1);
-
-    }
-
     private void drop( int p){
 
         liftArm.setTargetPosition(p);

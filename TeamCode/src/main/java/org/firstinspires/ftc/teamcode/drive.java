@@ -30,12 +30,6 @@ public class drive extends Robot4592 {
         }
     }
 
-    private void drive(double lf, double lr, double rf, double rr){
-        leftFront.setPower(lf);
-        leftRear.setPower(lr);
-        rightFront.setPower(rf);
-        rightRear.setPower(rr);
-    }
     private void turn(double lf, double lr, double rf, double rr){
         leftFront.setPower(-lf);
         leftRear.setPower(lr);

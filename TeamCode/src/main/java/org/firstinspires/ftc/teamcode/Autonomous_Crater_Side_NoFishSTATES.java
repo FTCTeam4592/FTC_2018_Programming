@@ -30,7 +30,6 @@ public class Autonomous_Crater_Side_NoFishSTATES extends Robot4592 {
 
     private String gp = "";
 
-    private DistanceSensor rDS;
     //private static final String VUFORIA_KEY = "AR28rTb/////AAAAGdmyxbWoaEUfpgbw+HH9dAR6pd2GE0zLPpsObm9c3iyHvFxLGIrvMEkriYpEMFXybIOF1ng9sKMrJr1He8aXsUQ+7zxItkmGs69z3vTyLgRRD0eUrIJXViYt+tk6IzPYE+4Z9v5hWKteebG3TfzVmT/H/kg6vMLzQblDYNcz4JJZYrCq2axfHBhrDp6ljJQv0esY5DacKVrFLn1H6Jkaxe0vuZFsOveYpTzRdY4v4UuXqEwUxz+NdM/++RZncWkbftEpcLaf1tMFkTZBCOdQ5Tx+HXoT1bpepy1hHF1E6+cwxiUxZAx1ZxbsH5IJ+TfVtk2GjGD1R9CqSqvDE+8fWY12BOZP3PTSdHLaVgCmw/hq";
     private static final String VUFORIA_KEY = "ARJCp6T/////AAABmRttT+LHV03viaux59tDgwQAcMq1HFTvZNKn5yFhA+l2VltLOSTPHHtHahoM9BTEmQKSs31iPWOjUw6PquYvKi/swRXOSNvJdHzqT7NvkcAiS8tHg/oV7YYATIbGItnLWdKdAVxxCdyTEsAhpNjSPB13B9F9cN6k4tYr38faOz51bbINpcKd6jivqJDwatyuaU2r9F5eSERe2GrzZfSIqUCZdW3tDIhXCgsJ1U4AS6QdYspg0yoG88VsxAZHNZvEl2Ldc7tenqS2MBLBSORv8uQisk6wgqJSlv4oOnoQoMd9p72+cAV2HUO5I1uynCeR/ON8oSMxfmaa4spc51p8Ek7EK7mtaEy+SgkSDC/EYSQ8";
     private VuforiaLocalizer vuforia;
@@ -58,7 +57,6 @@ public class Autonomous_Crater_Side_NoFishSTATES extends Robot4592 {
     @Override
     public void runOpMode() {
 
-        rDS = hardwareMap.get(DistanceSensor.class,"rearDistanceSensor");
 
 
         auto();
@@ -122,7 +120,7 @@ public class Autonomous_Crater_Side_NoFishSTATES extends Robot4592 {
 
         //To release the hook from the Lander move forward a tad
         driveForward(0.5, 10);
-        sleep(1000);
+        sleep(2500);
 
 
 

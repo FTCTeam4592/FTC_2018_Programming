@@ -226,15 +226,6 @@ public class Game_TeleOP extends Robot4592 {
 
         }
 
-        private void drive( double lf, double rf, double lr, double rr1){
-
-        leftFront.setPower(lf);
-        rightFront.setPower(rf);
-        leftRear.setPower(lr);
-        rightRear.setPower(rr1);
-
-        }
-
         private void intake(double inP){
             Intake.setPower(inP);
         }

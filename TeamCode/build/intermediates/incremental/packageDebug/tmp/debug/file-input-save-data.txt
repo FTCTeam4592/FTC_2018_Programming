@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Feb 01 22:32:50 EST 2019
+#Thu Jun 20 20:06:12 EDT 2019
 20.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 143.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 237.path=java/js/antlr4/IntervalSet.js
@@ -157,7 +157,7 @@
 180.baseType=DIRECTORY
 264.set=NATIVE_RESOURCE
 142.set=ASSET
-242.path=classes.dex
+242.path=ftcblockly/generators/ftcjava/procedures.js
 187.set=ASSET
 105.path=java/js/antlr4/tree/Trees.js
 361.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
@@ -284,7 +284,7 @@
 272.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 121.baseType=DIRECTORY
 102.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
-399.path=js/util.js
+399.path=classes.dex
 63.set=ASSET
 314.set=ASSET
 229.path=java/templates/PushbotTeleopTank_Iterative
@@ -331,7 +331,7 @@
 285.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/11
 16.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 148.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
-399.set=ASSET
+399.set=DEX
 319.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 71.set=ASSET
 322.set=ASSET
@@ -392,7 +392,7 @@
 253.set=ASSET
 37.path=blocks/voltage_sensor.js
 131.set=ASSET
-246.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+246.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/mergeJniLibs/debug/0
 176.set=ASSET
 109.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 384.set=ASSET
@@ -418,7 +418,7 @@
 211.path=java/js/antlr4/error/DiagnosticErrorListener.js
 284.set=ASSET
 162.set=ASSET
-244.path=images/ftcDeviceInterfaceModule.png
+244.path=java/templates/PushbotAutoDriveByGyro_Linear
 330.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 60.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 192.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
@@ -443,7 +443,7 @@
 369.baseType=DIRECTORY
 83.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 375.baseType=DIRECTORY
-386.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+386.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/19
 5.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 361.path=java/templates/ConceptTensorFlowObjectDetection
 394.path=blocks/samples/ConceptTensorFlowObjectDetection.blk
@@ -614,7 +614,7 @@
 68.path=java/js/jquery.position.js
 277.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 396.set=ASSET
-242.set=DEX
+242.set=ASSET
 252.path=java/js/ext-spellcheck.js
 120.set=ASSET
 221.baseType=DIRECTORY
@@ -664,7 +664,7 @@
 350.path=blocks/samples/ConceptVuforiaNavRoverRuckus.blk
 25.set=ASSET
 213.path=blocks/samples/ConceptSmoothServo.blk
-246.path=blockly/blockly_compressed.js
+246.path=lib/armeabi-v7a/libobject_tracking.so
 332.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 194.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 109.path=fonts/glyphicons-halflings-regular.woff
@@ -672,7 +672,7 @@
 286.baseType=DIRECTORY
 19.path=java/js/antlr4/dfa/index.js
 79.set=ASSET
-398.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/18
+398.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 228.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 340.path=FtcBlocks.html
 281.set=ASSET
@@ -725,7 +725,7 @@
 50.path=blocks/sound_util.js
 10.set=ASSET
 83.path=fonts/SourceCodePro.woff2
-386.path=blocks/tfod_rover_ruckus.js
+386.path=classes.dex
 292.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 5.path=java/templates/SensorREVColorDistance
 122.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
@@ -782,7 +782,7 @@
 323.set=ASSET
 176.path=images/ftcAccelerationSensor.png
 347.path=java/js/java/java.js
-246.set=ASSET
+246.set=NATIVE_RESOURCE
 124.set=ASSET
 116.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 259.baseType=DIRECTORY
@@ -838,7 +838,7 @@
 177.set=ASSET
 104.path=blocks/misc.js
 360.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
-385.set=DEX
+385.set=ASSET
 29.set=ASSET
 137.path=java/js/antlr4/atn/ATNDeserializationOptions.js
 393.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
@@ -963,7 +963,7 @@
 63.baseType=DIRECTORY
 91.baseType=DIRECTORY
 1.baseType=DIRECTORY
-398.path=classes.dex
+398.path=js/util.js
 53.set=ASSET
 105.baseType=DIRECTORY
 304.set=ASSET
@@ -1095,7 +1095,7 @@
 274.set=ASSET
 210.path=java/js/flowtype.js
 152.set=ASSET
-243.path=ftcblockly/generators/ftcjava/procedures.js
+243.path=images/ftcDeviceInterfaceModule.png
 6.set=ASSET
 197.set=ASSET
 106.path=blocks/distance_sensor.js
@@ -1118,7 +1118,7 @@
 299.path=RobotConfig.xsd
 82.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/mergeJniLibs/debug/0
 129.path=java/js/antlr4/CharStreams.js
-385.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/19
+385.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 359.baseType=DIRECTORY
 4.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 387.baseType=DIRECTORY
@@ -1232,7 +1232,7 @@
 169.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 46.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 388.baseType=DIRECTORY
-247.set=NATIVE_RESOURCE
+247.set=DEX
 125.set=ASSET
 79.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 111.path=java/js/toe.min.js
@@ -1296,7 +1296,7 @@
 146.baseType=DIRECTORY
 276.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 174.baseType=DIRECTORY
-386.set=ASSET
+386.set=DEX
 302.baseType=DIRECTORY
 330.baseType=DIRECTORY
 232.set=ASSET
@@ -1331,7 +1331,7 @@
 263.set=ASSET
 38.path=blocks/lynx_i2c_color_range_sensor.js
 141.set=ASSET
-247.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/mergeJniLibs/debug/0
+247.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/14
 186.set=ASSET
 394.set=ASSET
 222.path=blockly/media/quote1.png
@@ -1354,7 +1354,7 @@
 389.baseType=DIRECTORY
 294.set=ASSET
 212.path=java/js/ftclangtools.js
-245.path=java/templates/PushbotAutoDriveByGyro_Linear
+245.path=blockly/blockly_compressed.js
 331.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 61.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 193.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/mergeJniLibs/debug/0
@@ -1406,7 +1406,7 @@ count=406
 77.set=ASSET
 328.set=ASSET
 82.path=lib/x86/libobject_tracking.so
-385.path=classes.dex
+385.path=blocks/tfod_rover_ruckus.js
 291.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 4.path=images/ftcUltrasonicSensor.png
 121.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
@@ -1477,7 +1477,7 @@ count=406
 168.set=ASSET
 33.path=css/bootstrap-theme.min.css
 336.path=java/js/antlr4/atn/ATNConfigSet.js
-242.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/14
+242.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 198.path=css/bootstrap.css.map
 369.path=blocks/mr_i2c_compass_sensor.js
 358.baseType=DIRECTORY
@@ -1500,7 +1500,7 @@ count=406
 273.baseType=DIRECTORY
 403.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 401.baseType=DIRECTORY
-398.set=DEX
+398.set=ASSET
 56.path=java/js/java/JavaListener.js
 70.set=ASSET
 321.set=ASSET
@@ -1603,7 +1603,7 @@ count=406
 214.path=java/js/antlr4/RuleContext.js
 209.set=NATIVE_RESOURCE
 30.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
-247.path=lib/armeabi-v7a/libobject_tracking.so
+247.path=classes.dex
 268.baseType=DIRECTORY
 333.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 274.baseType=DIRECTORY
@@ -1611,7 +1611,7 @@ count=406
 195.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 366.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 89.set=ASSET
-399.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
+399.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/transforms/dexMerger/debug/18
 12.set=ASSET
 229.base=/Users/jai/Documents/FTC_2018_Programming/TeamCode/build/intermediates/merged_assets/debug/mergeDebugAssets/out
 170.path=java/templates/ConceptSoundsOnBotJava

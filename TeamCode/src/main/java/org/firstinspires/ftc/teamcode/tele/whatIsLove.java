@@ -158,15 +158,6 @@ public class whatIsLove extends Robot4592 {
         }
     }
 
-    private void drive( double lf, double rf, double lr, double rr1){
-
-        leftFront.setPower(lf);
-        rightFront.setPower(rf);
-        leftRear.setPower(lr);
-        rightRear.setPower(rr1);
-
-    }
-
     private void arcade(double left, double right){
 
         leftFront.setPower(left);
